@@ -1,5 +1,4 @@
 import { Model } from "sequelize";
-import { now } from "sequelize/lib/utils";
 
 export default (sequelize, DataTypes) => {
   class GroupDetail extends Model {

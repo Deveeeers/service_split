@@ -8,7 +8,7 @@ export class UserController {
   });
 
   deleteUser = catchAsyncError((req, res, next) => {
-    const deletedUser = userRepository.deleteUser(req.params.id);
+    const deletedUser = userRepository.deleteUser(req.params);
     return res.status(200).json({ message: `Successfully deleted the User` });
   });
 }

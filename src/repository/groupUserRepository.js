@@ -2,17 +2,17 @@ import { ErrorHander } from "../utils/errorHander.js";
 import { Model } from "../db/models/index.js";
 
 class GroupUserRepository {
-  addUser = async ({ user_id, group_id }) => {
-    console.log({ user_id, group_id });
-    // const existingUser = await Model.GroupUser.findOne({
-    //   where: {
-    //     user_id: user_id,
-    //     group_id: group_id,
-    //   },
-    // });
-    // if (existingUser) {
-    //   throw new ErrorHander("User Already Exists in the group");
-    // }
+  addUser = async (data, options) => {
+    const { user_id, group_id } = data;
+    const existingUser = await Model.GroupUser.findOne({
+      where: {
+        user_id: user_id,
+        group_id: group_id,
+      },
+    });
+    if (existingUser) {
+      throw new ErrorHander("User Already Exists in the group");
+    }
     const newUserGroup = await Model.GroupUser.create({
       id: 4,
       user_id: user_id,
@@ -23,7 +23,8 @@ class GroupUserRepository {
     return newUserGroup;
   };
 
-  deleteUser = async ({ user_id, group_id }) => {
+  deleteUser = async (data, options) => {
+    const { user_id, group_id } = data;
     const user = await Model.GroupUser.findOne({
       where: {
         user_id: user_id,

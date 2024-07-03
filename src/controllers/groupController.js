@@ -1,4 +1,3 @@
-import { ErrorHander } from "../utils/errorHander.js";
 import { catchAsyncError } from "../middleware/catchAsyncError.js";
 import { groupRepository } from "../repository/groupRepository.js";
 import { groupUserRepository } from "../repository/groupUserRepository.js";
@@ -11,7 +10,7 @@ export class GroupController {
   });
 
   deleteGroup = catchAsyncError((req, res, next) => {
-    groupRepository.deleteGroup(req.params.id);
+    groupRepository.deleteGroup(req.params);
     return res.status(200).json({ message: `The Group deleted successfully` });
   });
 

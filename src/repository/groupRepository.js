@@ -2,7 +2,8 @@ import { Model } from "../db/models/index.js";
 import { ErrorHander } from "../utils/errorHander.js";
 
 class GroupRepository {
-  createGroup = async ({ group_name, desc }) => {
+  createGroup = async (data, options) => {
+    const { group_name, desc } = data;
     const newGroup = await Model.GroupDetail.create({
       group_name: group_name,
       desc: desc,
@@ -12,7 +13,8 @@ class GroupRepository {
     }
     return newGroup;
   };
-  deleteGroup = async (id) => {
+  deleteGroup = async (data, options) => {
+    const id = data.id;
     const deletedGroup = await Model.GroupDetail.destroy({
       where: {
         group_id: id,

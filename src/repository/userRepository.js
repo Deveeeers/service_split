@@ -2,19 +2,22 @@ import { Model } from "../db/models/index.js";
 import { ErrorHander } from "../utils/errorHander.js";
 
 class UserRepository {
-  createUser = async ({ ulid, name, email, address, contact_number }) => {
-    const newUser = await Model.User.create({
+  createUser = async (data, options) => {
+    const { ulid, name, email, address, contact_number } = data;
+    data = {
       ulid,
       name,
       email,
       address,
       contact_number,
-    });
+    };
+    const newUser = await Model.User.create(data);
     if (!newUser)
       throw new ErrorHander("NHI BANAYA PAYYE SARKAAR AAPKA USER", 500);
     return newUser;
   };
-  deleteUser = async (id) => {
+  deleteUser = async (data, options) => {
+    const id = data.id;
     const deletedUser = await Model.User.destroy({
       where: {
         id: id,

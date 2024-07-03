@@ -1,5 +1,6 @@
 "use strict";
 
+/** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up(queryInterface, Sequelize) {
     /**
@@ -8,30 +9,22 @@ module.exports = {
      * Example:
      * await queryInterface.createTable('users', { id: Sequelize.INTEGER });
      */
-    await queryInterface.createTable("balancesheet", {
-      balancesheet_id: {
+    await queryInterface.createTable("groupUser", {
+      group_id: {
         type: Sequelize.INTEGER,
         primaryKey: true,
-        autoIncrement: true,
+        references: {
+          model: "groupDetail",
+          key: "group_id",
+        },
       },
       user_id: {
         type: Sequelize.INTEGER,
+        primaryKey: true,
         references: {
           model: "user",
           key: "id",
         },
-      },
-      total_lend: {
-        type: Sequelize.FLOAT,
-      },
-      total_owe: {
-        type: Sequelize.FLOAT,
-      },
-      total_payment: {
-        type: Sequelize.FLOAT,
-      },
-      total_expense: {
-        type: Sequelize.FLOAT,
       },
       created_at: {
         type: Sequelize.DATE,
@@ -51,6 +44,6 @@ module.exports = {
      * Example:
      * await queryInterface.dropTable('users');
      */
-    await queryInterface.dropTable("balancesheet");
+    await queryInterface.dropTable("groupUser");
   },
 };

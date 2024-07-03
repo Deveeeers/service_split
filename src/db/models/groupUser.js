@@ -1,33 +1,29 @@
 import { Model } from "sequelize";
-import { now } from "sequelize/lib/utils";
 
 export default (sequelize, DataTypes) => {
-  class GroupDetail extends Model {
+  class GroupUser extends Model {
     static associate() {}
   }
 
-  GroupDetail.init(
+  GroupUser.init(
     {
       group_id: {
-        type: DataTypes.INTEGER,
+        type: DataTypes.STRING,
         primaryKey: true,
-        autoIncrement: true,
       },
-      group_name: {
+      user_id: {
         type: DataTypes.STRING,
-      },
-      desc: {
-        type: DataTypes.STRING,
+        primaryKey: true,
       },
     },
     {
       sequelize,
-      modelName: "GroupDetail",
-      tableName: "groupDetail",
+      modelName: "GroupUser",
+      tableName: "groupUser",
       underscored: true,
       timestamps: true, // Ensure timestamps are disabled since createdAt and updatedAt are managed by the database
     }
   );
 
-  return GroupDetail;
+  return GroupUser;
 };

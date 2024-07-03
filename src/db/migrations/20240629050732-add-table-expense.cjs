@@ -10,13 +10,11 @@ module.exports = {
      */
     await queryInterface.createTable("expense", {
       expense_id: {
-        allowNull: false,
         autoIncrement: true,
         primaryKey: true,
         type: Sequelize.INTEGER,
       },
       title: {
-        allowNull: false,
         type: Sequelize.STRING,
       },
       desc: {
@@ -24,31 +22,26 @@ module.exports = {
       },
       group_id: {
         type: Sequelize.INTEGER,
-        allowNull: false,
         references: {
-          model: "groupDetail", // Name of the target table
-          key: "group_id", // Key in the target table
+          model: "groupDetail",
+          key: "group_id",
         },
       },
       paid_by_id: {
         type: Sequelize.INTEGER,
-        allowNull: false,
         references: {
           model: "user",
           key: "id",
         },
       },
       amount: {
-        allowNull: false,
         type: Sequelize.FLOAT, // Corrected to Sequelize.FLOAT for numeric values
       },
-      createdAt: {
-        allowNull: false,
+      created_at: {
         type: Sequelize.DATE,
         defaultValue: Sequelize.literal("CURRENT_TIMESTAMP"),
       },
-      updatedAt: {
-        allowNull: false,
+      updated_at: {
         type: Sequelize.DATE,
         defaultValue: Sequelize.literal("CURRENT_TIMESTAMP"),
       },

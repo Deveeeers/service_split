@@ -11,7 +11,6 @@ module.exports = {
      */
     await queryInterface.createTable("balance", {
       balancesheet_id: {
-        allowNull: false,
         type: Sequelize.INTEGER,
         references: {
           model: "balancesheet",
@@ -19,7 +18,6 @@ module.exports = {
         },
       },
       user_id: {
-        allowNull: false,
         type: Sequelize.INTEGER,
         references: {
           model: "user",
@@ -27,7 +25,6 @@ module.exports = {
         },
       },
       another_user_id: {
-        allowNull: false,
         type: Sequelize.INTEGER,
         references: {
           model: "user",
@@ -35,22 +32,18 @@ module.exports = {
         },
       },
       lent_money: {
-        allowNull: true,
         type: Sequelize.INTEGER,
       },
       owe_money: {
-        allowNull: true,
         type: Sequelize.INTEGER,
       },
       created_at: {
         type: Sequelize.DATE,
         defaultValue: Sequelize.literal("CURRENT_TIMESTAMP"),
-        allowNull: false,
       },
       updated_at: {
         type: Sequelize.DATE,
         defaultValue: Sequelize.literal("CURRENT_TIMESTAMP"),
-        allowNull: false,
       },
     });
   },

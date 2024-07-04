@@ -1,10 +1,10 @@
-'use strict';
+"use strict";
 
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
-  async up (queryInterface, Sequelize) {
-    await queryInterface.createTable('user', {
-      id:{
+  async up(queryInterface, Sequelize) {
+    await queryInterface.createTable("user", {
+      id: {
         alowNull: false,
         autoIncrement: true,
         primaryKey: true,
@@ -25,16 +25,15 @@ module.exports = {
       contact_number: {
         type: Sequelize.STRING,
       },
-      created_at:{
+      created_at: {
         allowNull: false,
         type: Sequelize.DATE,
       },
-      updated_at:{
+      updated_at: {
         allowNull: false,
         type: Sequelize.DATE,
-      }
-
-    })
+      },
+    });
     /**
      * Add altering commands here.
      *
@@ -43,7 +42,7 @@ module.exports = {
      */
   },
 
-  async down (queryInterface, Sequelize) {
-    await queryInterface.dropTable('user');
-  }
+  async down(queryInterface, Sequelize) {
+    await queryInterface.dropTable("user");
+  },
 };

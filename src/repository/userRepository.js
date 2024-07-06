@@ -28,5 +28,16 @@ class UserRepository {
     }
     return deletedUser;
   };
+  update = async (data, options) => {
+    const updateUser = await Model.User.update(data, options);
+    if (!updateUser) {
+      throw new ErrorHander("Some error occured while updating the User", 500);
+    }
+    return updateUser;
+  };
+  get =  async (options) => {
+    const userDetails =  Model.User.findOne(options);
+    return userDetails; 
+  }
 }
 export const userRepository = new UserRepository();

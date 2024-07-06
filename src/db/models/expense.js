@@ -10,10 +10,8 @@ export default (sequelize, DataTypes) => {
 
   Expense.init(
     {
-      expense_id: {
+      expense_ulid: {
         type: DataTypes.STRING,
-        allowNull: false,
-        unique: true,
       },
       title: {
         type: DataTypes.STRING,

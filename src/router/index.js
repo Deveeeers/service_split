@@ -1,6 +1,5 @@
 import { Router } from "express";
-import { groupController } from "../controllers/groupController.js";
-import { userController } from "../controllers/userController.js";
+import { groupController, userController, ExpenseController } from "../controllers/index.js";
 
 export const router = Router();
 
@@ -11,3 +10,5 @@ router.delete("/groupuser", groupController.deleteUserFromGroup);
 
 router.post("/user", userController.createUser);
 router.delete("/user/:id", userController.deleteUser);
+
+router.post("/expense/:action", ExpenseController.add )

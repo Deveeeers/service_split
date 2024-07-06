@@ -8,20 +8,29 @@ module.exports = {
      * Example:
      * await queryInterface.createTable('users', { id: Sequelize.INTEGER });
      */
-    await queryInterface.createTable("split", {
-      split_id: {
-        type: Sequelize.INTEGER,
+    await queryInterface.createTable("expense", {
+      id: {
         autoIncrement: true,
         primaryKey: true,
+        type: Sequelize.INTEGER,
       },
-      expense_id: {
+      expense_ulid: {
+        type: Sequelize.STRING,
+      },
+      title: {
+        type: Sequelize.STRING,
+      },
+      desc: {
+        type: Sequelize.STRING,
+      },
+      group_id: {
         type: Sequelize.INTEGER,
         references: {
-          model: "expense",
-          key: "expense_id",
+          model: "groupDetail",
+          key: "group_id",
         },
       },
-      owe_by_id: {
+      paid_by_id: {
         type: Sequelize.INTEGER,
         references: {
           model: "user",
@@ -29,7 +38,7 @@ module.exports = {
         },
       },
       amount: {
-        type: Sequelize.FLOAT,
+        type: Sequelize.FLOAT, // Corrected to Sequelize.FLOAT for numeric values
       },
       created_at: {
         type: Sequelize.DATE,
@@ -49,6 +58,6 @@ module.exports = {
      * Example:
      * await queryInterface.dropTable('users');
      */
-    await queryInterface.dropTable("split");
+    await queryInterface.dropTable("expense");
   },
 };

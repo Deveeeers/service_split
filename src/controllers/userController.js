@@ -1,6 +1,7 @@
-import { ErrorHander } from "../utils/errorHander.js";
-import { catchAsyncError } from "../middleware/catchAsyncError.js";
-import { userRepository } from "../repository/userRepository.js";
+import { ErrorHander } from '../utils/errorHander.js';
+import { catchAsyncError } from '../middleware/catchAsyncError.js';
+import { userRepository } from '../repository/userRepository.js';
+
 export class UserController {
   createUser = catchAsyncError(async (req, res, next) => {
     const newUser = await userRepository.createUser(req.body);

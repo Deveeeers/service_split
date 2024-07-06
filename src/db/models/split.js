@@ -1,4 +1,4 @@
-import { Model } from "sequelize";
+import { Model } from 'sequelize';
 
 export default (sequelize, DataTypes) => {
   class Split extends Model {
@@ -11,7 +11,7 @@ export default (sequelize, DataTypes) => {
   Split.init(
     {
       expense_id: {
-        type: DataTypes.INTEGER
+        type: DataTypes.INTEGER,
       },
       owe_by_id: {
         type: DataTypes.INTEGER,
@@ -22,11 +22,11 @@ export default (sequelize, DataTypes) => {
     },
     {
       sequelize,
-      modelName: "Split",
-      tableName: "split",
+      modelName: 'Split',
+      tableName: 'split',
       underscored: true,
       timestamps: true,
-    }
+    },
   );
   return Split;
 };

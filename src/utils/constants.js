@@ -1,6 +1,5 @@
-
 export const CONSTANTS = {
-    currency: {
-        RUPEE: 'RUPEE'
-    }
-}
+  currency: {
+    RUPEE: 'RUPEE',
+  },
+};

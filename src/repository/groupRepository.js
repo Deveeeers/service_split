@@ -25,5 +25,9 @@ class GroupRepository {
     }
     return deletedGroup;
   };
+  get =  async (options) => {
+    const groupDetails =  Model.GroupDetail.findOne(options);
+    return groupDetails; 
+  }
 }
 export const groupRepository = new GroupRepository();

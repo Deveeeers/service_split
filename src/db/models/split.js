@@ -10,14 +10,11 @@ export default (sequelize, DataTypes) => {
 
   Split.init(
     {
-      split_id: {
-        type: DataTypes.STRING,
-      },
       expense_id: {
-        type: DataTypes.STRING,
+        type: DataTypes.INTEGER
       },
       owe_by_id: {
-        type: DataTypes.STRING,
+        type: DataTypes.INTEGER,
       },
       amount: {
         type: DataTypes.FLOAT,

@@ -12,6 +12,9 @@ export default (sequelize, DataTypes) => {
         primaryKey: true,
         autoIncrement: true,
       },
+      uuid: {
+        type: DataTypes.STRING,
+      },
       group_name: {
         type: DataTypes.STRING,
       },

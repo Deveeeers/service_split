@@ -1,7 +1,4 @@
-import { Common } from "./common.js";
-import {CONSTANTS} from "./constants.js"
+import { Common } from './common.js';
+import { CONSTANTS } from './constants.js';
 
-export {
-    CONSTANTS,
-    Common
-}
+export { CONSTANTS, Common };

@@ -1,6 +1,6 @@
-import Joi from "joi";
+import Joi from 'joi';
 
 export const expenseHeaders = {
-    user_id: Joi.string(),
-    group_uuid: Joi.string(),
-}
+  user_id: Joi.string(),
+  group_uuid: Joi.string(),
+};

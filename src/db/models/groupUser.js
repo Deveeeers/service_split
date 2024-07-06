@@ -1,4 +1,4 @@
-import { Model } from "sequelize";
+import { Model } from 'sequelize';
 
 export default (sequelize, DataTypes) => {
   class GroupUser extends Model {
@@ -18,11 +18,11 @@ export default (sequelize, DataTypes) => {
     },
     {
       sequelize,
-      modelName: "GroupUser",
-      tableName: "groupUser",
+      modelName: 'GroupUser',
+      tableName: 'groupUser',
       underscored: true,
       timestamps: true, // Ensure timestamps are disabled since createdAt and updatedAt are managed by the database
-    }
+    },
   );
 
   return GroupUser;

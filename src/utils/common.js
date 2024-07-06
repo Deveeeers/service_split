@@ -1,7 +1,7 @@
-import {ulid} from "ulid";
+import { ulid } from 'ulid';
 
 export const Common = {
-    createUlid: () => {
-        return ulid();
-    }
-}
+  createUlid: () => {
+    return ulid();
+  },
+};

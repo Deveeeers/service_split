@@ -1,12 +1,12 @@
-import express from "express";
-import { errorMiddleware } from "./middleware/error.js";
-import { router } from "./router/index.js";
+import express from 'express';
+import { errorMiddleware } from './middleware/error.js';
+import { router } from './router/index.js';
 
 const app = express();
 
 async function main() {
   try {
-    app.use(express.json({ limit: "60mb", extends: true }));
+    app.use(express.json({ limit: '60mb', extends: true }));
     // await import("../src/db/models/index.js");
 
     const port = process.env.PORT || 4000;

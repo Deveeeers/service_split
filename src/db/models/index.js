@@ -20,6 +20,7 @@ const main = async () => {
       .then(async () => {
         console.info('Database connection has been established successfully.');
       })
+      // eslint-disable-next-line
       .catch(err => {
         setTimeout(() => {
           process.exit(2);

@@ -11,7 +11,7 @@ export const ExpenseController = {
       const response = await AddExpense.process(params);
       return res.status(200).json(response);
     } catch (error) {
-      throw error;
+      throw new Error(error);
     }
   },
 };

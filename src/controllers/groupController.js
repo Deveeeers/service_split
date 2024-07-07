@@ -1,6 +1,7 @@
-import { catchAsyncError } from "../middleware/catchAsyncError.js";
-import { groupRepository } from "../repository/groupRepository.js";
-import { groupUserRepository } from "../repository/groupUserRepository.js";
+import { catchAsyncError } from '../middleware/catchAsyncError.js';
+import { groupRepository } from '../repository/groupRepository.js';
+import { groupUserRepository } from '../repository/groupUserRepository.js';
+
 export class GroupController {
   createGroup = catchAsyncError(async (req, res, next) => {
     const newGroup = await groupRepository.createGroup(req.body);

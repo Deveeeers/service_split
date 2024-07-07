@@ -1,4 +1,4 @@
-import { Model } from "sequelize";
+import { Model } from 'sequelize';
 
 export default (sequelize, DataTypes) => {
   class Expense extends Model {
@@ -10,10 +10,8 @@ export default (sequelize, DataTypes) => {
 
   Expense.init(
     {
-      expense_id: {
+      expense_ulid: {
         type: DataTypes.STRING,
-        allowNull: false,
-        unique: true,
       },
       title: {
         type: DataTypes.STRING,
@@ -37,11 +35,11 @@ export default (sequelize, DataTypes) => {
     },
     {
       sequelize,
-      modelName: "Expense",
-      tableName: "expense",
+      modelName: 'Expense',
+      tableName: 'expense',
       underscored: true,
       timestamps: true,
-    }
+    },
   );
   return Expense;
 };

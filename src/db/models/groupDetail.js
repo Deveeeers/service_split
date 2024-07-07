@@ -1,4 +1,4 @@
-import { Model } from "sequelize";
+import { Model } from 'sequelize';
 
 export default (sequelize, DataTypes) => {
   class GroupDetail extends Model {
@@ -12,6 +12,9 @@ export default (sequelize, DataTypes) => {
         primaryKey: true,
         autoIncrement: true,
       },
+      uuid: {
+        type: DataTypes.STRING,
+      },
       group_name: {
         type: DataTypes.STRING,
       },
@@ -21,11 +24,11 @@ export default (sequelize, DataTypes) => {
     },
     {
       sequelize,
-      modelName: "GroupDetail",
-      tableName: "groupDetail",
+      modelName: 'GroupDetail',
+      tableName: 'groupDetail',
       underscored: true,
       timestamps: true, // Ensure timestamps are disabled since createdAt and updatedAt are managed by the database
-    }
+    },
   );
 
   return GroupDetail;

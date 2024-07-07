@@ -1,4 +1,4 @@
-import { Model } from "sequelize";
+import { Model } from 'sequelize';
 
 export default (sequelize, DataTypes) => {
   class Balance extends Model {
@@ -28,11 +28,11 @@ export default (sequelize, DataTypes) => {
     },
     {
       sequelize,
-      modelName: "Balance",
-      tableName: "balance",
+      modelName: 'Balance',
+      tableName: 'balance',
       underscored: true,
       timestamps: true,
-    }
+    },
   );
   return Balance;
 };

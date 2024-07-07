@@ -1,5 +1,3 @@
-"use strict";
-
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up(queryInterface, Sequelize) {
@@ -9,26 +7,26 @@ module.exports = {
      * Example:
      * await queryInterface.createTable('users', { id: Sequelize.INTEGER });
      */
-    await queryInterface.createTable("balance", {
+    await queryInterface.createTable(`balance`, {
       balancesheet_id: {
         type: Sequelize.INTEGER,
         references: {
-          model: "balancesheet",
-          key: "balancesheet_id",
+          model: `balancesheet`,
+          key: `balancesheet_id`,
         },
       },
       user_id: {
         type: Sequelize.INTEGER,
         references: {
-          model: "user",
-          key: "id",
+          model: `user`,
+          key: `id`,
         },
       },
       another_user_id: {
         type: Sequelize.INTEGER,
         references: {
-          model: "user",
-          key: "id",
+          model: `user`,
+          key: `id`,
         },
       },
       lent_money: {
@@ -39,22 +37,22 @@ module.exports = {
       },
       created_at: {
         type: Sequelize.DATE,
-        defaultValue: Sequelize.literal("CURRENT_TIMESTAMP"),
+        defaultValue: Sequelize.literal(`CURRENT_TIMESTAMP`),
       },
       updated_at: {
         type: Sequelize.DATE,
-        defaultValue: Sequelize.literal("CURRENT_TIMESTAMP"),
+        defaultValue: Sequelize.literal(`CURRENT_TIMESTAMP`),
       },
     });
   },
 
-  async down(queryInterface, Sequelize) {
+  async down(queryInterface) {
     /**
      * Add reverting commands here.
      *
      * Example:
      * await queryInterface.dropTable('users');
      */
-    await queryInterface.dropTable("balance");
+    await queryInterface.dropTable(`balance`);
   },
 };

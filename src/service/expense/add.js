@@ -58,14 +58,14 @@ export const AddExpense = {
         });
       }
 
-      if (totalSplitAmount != params.total_amount) {
+      if (totalSplitAmount !== params.total_amount) {
         const error = new Error(`split amount total not matched`);
         error.status = 409;
         return error;
       }
       const split = await splitRepository.bulkCreate(splitData, { transaction });
-
       await transaction.commit();
+      return split;
     } catch (error) {
       if (transaction) {
         await transaction.rollback();

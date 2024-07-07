@@ -1,5 +1,3 @@
-"use strict";
-
 module.exports = {
   async up(queryInterface, Sequelize) {
     /**
@@ -8,7 +6,7 @@ module.exports = {
      * Example:
      * await queryInterface.createTable('users', { id: Sequelize.INTEGER });
      */
-    await queryInterface.createTable("split", {
+    await queryInterface.createTable(`split`, {
       id: {
         type: Sequelize.INTEGER,
         autoIncrement: true,
@@ -17,15 +15,15 @@ module.exports = {
       expense_id: {
         type: Sequelize.INTEGER,
         references: {
-          model: "expense",
-          key: "id",
+          model: `expense`,
+          key: `id`,
         },
       },
       owe_by_id: {
         type: Sequelize.INTEGER,
         references: {
-          model: "user",
-          key: "id",
+          model: `user`,
+          key: `id`,
         },
       },
       amount: {
@@ -33,22 +31,22 @@ module.exports = {
       },
       created_at: {
         type: Sequelize.DATE,
-        defaultValue: Sequelize.literal("CURRENT_TIMESTAMP"),
+        defaultValue: Sequelize.literal(`CURRENT_TIMESTAMP`),
       },
       updated_at: {
         type: Sequelize.DATE,
-        defaultValue: Sequelize.literal("CURRENT_TIMESTAMP"),
+        defaultValue: Sequelize.literal(`CURRENT_TIMESTAMP`),
       },
     });
   },
 
-  async down(queryInterface, Sequelize) {
+  async down(queryInterface) {
     /**
      * Add reverting commands here.
      *
      * Example:
      * await queryInterface.dropTable('users');
      */
-    await queryInterface.dropTable("split");
+    await queryInterface.dropTable(`split`);
   },
 };

@@ -11,7 +11,7 @@ export const expenseBody = Joi.object({
   split: Joi.array()
     .items({
       user_id: Joi.string(),
-      split_amount: Joi.string(),
+      split_amount: Joi.number(),
     })
     .required(),
 });

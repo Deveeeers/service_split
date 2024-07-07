@@ -1,8 +1,8 @@
 import { ErrorHander } from '../utils/errorHander.js';
 import { Model } from '../db/models/index.js';
 
-class GroupUserRepository {
-  addUser = async (data, options) => {
+export const groupUserRepository = {
+  addUser: async data => {
     const { user_id, group_id } = data;
     const existingUser = await Model.GroupUser.findOne({
       where: {
@@ -18,12 +18,10 @@ class GroupUserRepository {
       user_id,
       group_id,
     });
-    console.log(newUserGroup);
-
     return newUserGroup;
-  };
+  },
 
-  deleteUser = async (data, options) => {
+  deleteUser: async data => {
     const { user_id, group_id } = data;
     const user = await Model.GroupUser.findOne({
       where: {
@@ -31,8 +29,6 @@ class GroupUserRepository {
         group_id,
       },
     });
-
-    console.log(user);
 
     if (!user) {
       throw new ErrorHander('User not found in the group', 404);
@@ -46,7 +42,5 @@ class GroupUserRepository {
     });
 
     return deletedUser;
-  };
-}
-
-export const groupUserRepository = new GroupUserRepository();
+  },
+};

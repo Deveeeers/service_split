@@ -1,8 +1,6 @@
-"use strict";
-
 module.exports = {
   async up(queryInterface, Sequelize) {
-    await queryInterface.createTable("groupDetail", {
+    await queryInterface.createTable(`groupDetail`, {
       group_id: {
         autoIncrement: true,
         primaryKey: true,
@@ -19,15 +17,15 @@ module.exports = {
       },
       created_at: {
         type: Sequelize.DATE,
-        defaultValue: Sequelize.literal("CURRENT_TIMESTAMP"),
+        defaultValue: Sequelize.literal(`CURRENT_TIMESTAMP`),
       },
       updated_at: {
         type: Sequelize.DATE,
-        defaultValue: Sequelize.literal("CURRENT_TIMESTAMP"),
+        defaultValue: Sequelize.literal(`CURRENT_TIMESTAMP`),
       },
     });
   },
-  async down(queryInterface, Sequelize) {
-    await queryInterface.dropTable("groupDetail");
+  async down(queryInterface) {
+    await queryInterface.dropTable(`groupDetail`);
   },
 };

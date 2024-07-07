@@ -2,7 +2,7 @@ import { catchAsyncError } from '../middleware/catchAsyncError.js';
 import { userRepository } from '../repository/userRepository.js';
 
 export const userController = {
-  createUse: catchAsyncError(async (req, res) => {
+  createUser: catchAsyncError(async (req, res) => {
     const newUser = await userRepository.createUser(req.body);
     return res.status(200).json({ newUser });
   }),

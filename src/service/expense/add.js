@@ -75,3 +75,10 @@ export const AddExpense = {
     }
   },
 };
+
+export const deleteExpense = {
+  process: async params => {
+    const deletedExpense = await expenseRepository.delete(params);
+    return deletedExpense;
+  },
+};

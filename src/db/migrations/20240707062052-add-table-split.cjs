@@ -18,6 +18,8 @@ module.exports = {
           model: `expense`,
           key: `id`,
         },
+        onUpdate: 'CASCADE',
+        onDelete: 'CASCADE',
       },
       owe_by_id: {
         type: Sequelize.STRING,

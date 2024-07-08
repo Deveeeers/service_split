@@ -6,7 +6,7 @@ const app = express();
 async function main() {
   try {
     app.use(express.json({ limit: '60mb', extends: true }));
-    // await import("../src/db/models/index.js");
+    await import('./db/models/index.js');
 
     const port = process.env.PORT || 4000;
 

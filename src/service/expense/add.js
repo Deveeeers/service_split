@@ -29,9 +29,10 @@ export const AddExpense = {
         title: params.title,
         desc: params.desc || '',
         amount: params.total_amount,
-        group_id: group.group_id,
-        paid_by_id: userDetails.id,
+        group_id: group.uuid,
+        paid_by_id: userDetails.ulid,
       };
+      console.log(expenseData);
 
       const expense = await expenseRepository.create(expenseData, { transaction });
 
@@ -53,7 +54,7 @@ export const AddExpense = {
 
         splitData.push({
           expense_id: expense.id,
-          owe_by_id: user.id,
+          owe_by_id: user.ulid,
           amount: entry.split_amount,
         });
       }

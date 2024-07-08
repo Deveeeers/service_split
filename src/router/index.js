@@ -6,11 +6,16 @@ import { requestValidator, aeh } from '../middleware/index.js';
 
 export const router = Router();
 
-router.post('/group', aeh(groupController.createGroup));
+router.post(
+  '/group',
+  requestValidator(Validations.createGroupBodyValidator, CONSTANTS.REQUEST.BODY),
+  requestValidator(Validations.createGroupHeaderValidator, CONSTANTS.REQUEST.HEADERS),
+  aeh(groupController.createGroup),
+);
 router.delete(`/group/:id`, aeh(groupController.deleteGroup));
 router.post('/groupuser', aeh(groupController.addUserToGroup));
 router.delete('/groupuser', aeh(groupController.deleteUserFromGroup));
-router.post('/user', aeh(userController.createUser));
+router.post('/user', requestValidator(Validations.createUserBody, CONSTANTS.REQUEST.BODY), aeh(userController.createUser));
 router.delete('/user/:id', aeh(userController.deleteUser));
 router.post(
   '/expense/:action',

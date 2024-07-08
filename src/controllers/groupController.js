@@ -7,7 +7,7 @@ export const groupController = {
     try {
       const newGroup = await groupRepository.createGroup(req.body);
       req.body.group_id = newGroup.group_id;
-      const welcomeUser = await groupUserRepository.addUser(req.body);
+      const welcomeUser = await groupUserRepository.selfAdd(req);
       return res.status(200).json({ newGroup, welcomeUser });
     } catch (error) {
       throw error;

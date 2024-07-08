@@ -19,4 +19,13 @@ export const userController = {
       throw error;
     }
   },
+
+  updateUser: async (req, res) => {
+    try {
+      const updatedUser = await userRepository.update(req.body);
+      return res.status(200).json({ message: updatedUser });
+    } catch (error) {
+      throw error;
+    }
+  },
 };

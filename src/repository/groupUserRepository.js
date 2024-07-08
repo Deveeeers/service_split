@@ -3,7 +3,7 @@ import { InternalServerError } from '../exceptions/http/internalServer.js';
 
 export const groupUserRepository = {
   addUser: async data => {
-    const { user_id, group_id } = data;
+    const { group_id, user_id } = data;
     const existingUser = await Model.GroupUser.findOne({
       where: {
         user_id,
@@ -37,5 +37,15 @@ export const groupUserRepository = {
     }
 
     return deletedUser;
+  },
+
+  selfAdd: async data => {
+    const { group_id } = data.body;
+    const { user_id } = data.headers;
+    const newUserGroup = await Model.GroupUser.create({
+      group_id,
+      user_id,
+    });
+    return newUserGroup;
   },
 };

@@ -3,16 +3,7 @@ import { InternalServerError } from '../exceptions/http/internalServer.js';
 
 export const userRepository = {
   createUser: async data => {
-    const { ulid, name, email, address, contact_number } = data;
-    const data2 = {
-      ulid,
-      name,
-      email,
-      address,
-      contact_number,
-    };
-
-    const newUser = await Model.User.create(data2);
+    const newUser = await Model.User.create(data);
     if (!newUser) {
       const error = new InternalServerError('group  or user Not found');
       throw error;
@@ -21,10 +12,10 @@ export const userRepository = {
   },
 
   deleteUser: async data => {
-    const { id } = data;
+    const { id: ulid } = data;
     const deletedUser = await Model.User.destroy({
       where: {
-        id,
+        ulid,
       },
     });
     console.log(deletedUser);
@@ -36,7 +27,9 @@ export const userRepository = {
   },
 
   update: async (data, options) => {
-    const updateUser = await Model.User.update(data, options);
+    const { name, email, address, contact_number } = data;
+    const data2 = { name, email, address, contact_number };
+    const updateUser = await Model.User.update(data2, options);
     if (!updateUser) {
       const error = new InternalServerError('group  or user Not found');
       throw error;

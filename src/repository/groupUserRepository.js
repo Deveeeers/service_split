@@ -12,14 +12,14 @@ export const groupUserRepository = {
     });
     if (existingUser) {
       const error = new InternalServerError('User already exist in group');
-      return error;
+      throw error;
     }
     const newUserGroup = await Model.GroupUser.create({
       id: 4,
       user_id,
       group_id,
     });
-    return newUserGroup;
+    throw newUserGroup;
   },
 
   deleteUser: async data => {
@@ -33,7 +33,7 @@ export const groupUserRepository = {
 
     if (!deletedUser) {
       const error = new InternalServerError('group  or user Not found');
-      return error;
+      throw error;
     }
 
     return deletedUser;

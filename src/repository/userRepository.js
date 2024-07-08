@@ -15,7 +15,7 @@ export const userRepository = {
     const newUser = await Model.User.create(data2);
     if (!newUser) {
       const error = new InternalServerError('group  or user Not found');
-      return error;
+      throw error;
     }
     return newUser;
   },
@@ -27,9 +27,10 @@ export const userRepository = {
         id,
       },
     });
+    console.log(deletedUser);
     if (!deletedUser) {
       const error = new InternalServerError('group  or user Not found');
-      return error;
+      throw error;
     }
     return deletedUser;
   },
@@ -38,7 +39,7 @@ export const userRepository = {
     const updateUser = await Model.User.update(data, options);
     if (!updateUser) {
       const error = new InternalServerError('group  or user Not found');
-      return error;
+      throw error;
     }
     return updateUser;
   },

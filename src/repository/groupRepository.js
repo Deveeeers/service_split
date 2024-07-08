@@ -10,7 +10,7 @@ export const groupRepository = {
     });
     if (!newGroup) {
       const error = new InternalServerError(`Error creating the group`);
-      return error;
+      throw error;
     }
     return newGroup;
   },
@@ -24,7 +24,7 @@ export const groupRepository = {
     });
     if (!deletedGroup) {
       const error = new InternalServerError(`Error deleting the group`);
-      return error;
+      throw error;
     }
     return deletedGroup;
   },

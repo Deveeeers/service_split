@@ -13,11 +13,13 @@ module.exports = {
         autoIncrement: true,
       },
       user_id: {
-        type: Sequelize.INTEGER,
+        type: Sequelize.STRING,
         references: {
           model: `user`,
-          key: `id`,
+          key: `ulid`,
         },
+        onUpdate: 'CASCADE',
+        onDelete: 'CASCADE',
       },
       total_lend: {
         type: Sequelize.FLOAT,

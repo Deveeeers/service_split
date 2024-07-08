@@ -20,11 +20,13 @@ module.exports = {
         },
       },
       owe_by_id: {
-        type: Sequelize.INTEGER,
+        type: Sequelize.STRING,
         references: {
           model: `user`,
-          key: `id`,
+          key: `ulid`,
         },
+        onUpdate: 'CASCADE',
+        onDelete: 'CASCADE',
       },
       amount: {
         type: Sequelize.FLOAT,

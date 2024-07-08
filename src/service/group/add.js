@@ -11,7 +11,7 @@ export const createGroupService = {
     try {
       params.body.uuid = Common.createUlid();
       const newGroup = await groupRepository.createGroup(params);
-      params.body.group_id = newGroup.group_id;
+      params.body.group_id = newGroup.uuid;
       const welcomeUser = await groupUserRepository.selfAdd(params);
       return { newGroup, welcomeUser };
     } catch (error) {

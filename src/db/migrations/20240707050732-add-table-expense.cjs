@@ -22,18 +22,22 @@ module.exports = {
         type: Sequelize.STRING,
       },
       group_id: {
-        type: Sequelize.INTEGER,
+        type: Sequelize.STRING,
         references: {
           model: `groupDetail`,
-          key: `group_id`,
+          key: `uuid`,
         },
+        onUpdate: 'CASCADE',
+        onDelete: 'CASCADE',
       },
       paid_by_id: {
-        type: Sequelize.INTEGER,
+        type: Sequelize.STRING,
         references: {
           model: `user`,
-          key: `id`,
+          key: `ulid`,
         },
+        onUpdate: 'CASCADE',
+        onDelete: 'CASCADE',
       },
       amount: {
         type: Sequelize.FLOAT, // Corrected to Sequelize.FLOAT for numeric values

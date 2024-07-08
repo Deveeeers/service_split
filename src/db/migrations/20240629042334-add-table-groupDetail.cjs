@@ -8,6 +8,8 @@ module.exports = {
       },
       uuid: {
         type: Sequelize.STRING,
+        unique: true,
+        allowNull: false,
       },
       group_name: {
         type: Sequelize.STRING,

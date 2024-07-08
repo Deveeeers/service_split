@@ -1,5 +1,4 @@
 import express from 'express';
-import { errorMiddleware } from './middleware/error.js';
 import { router } from './router/index.js';
 
 const app = express();
@@ -17,8 +16,6 @@ async function main() {
     });
 
     app.use(router);
-
-    app.use(errorMiddleware);
 
     app.listen(port, () => {
       console.log(`app is running on port ${port}`);

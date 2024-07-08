@@ -1,5 +1,5 @@
 import { Model } from '../db/models/index.js';
-import { ErrorHander } from '../utils/errorHander.js';
+import { InternalServerError } from '../exceptions/http/internalServer.js';
 
 export const userRepository = {
   createUser: async data => {
@@ -11,8 +11,12 @@ export const userRepository = {
       address,
       contact_number,
     };
+
     const newUser = await Model.User.create(data2);
-    if (!newUser) throw new ErrorHander('NHI BANAYA PAYYE SARKAAR AAPKA USER', 500);
+    if (!newUser) {
+      const error = new InternalServerError('group  or user Not found');
+      return error;
+    }
     return newUser;
   },
 
@@ -24,7 +28,8 @@ export const userRepository = {
       },
     });
     if (!deletedUser) {
-      throw new ErrorHander('Some error occured while deleting the User', 500);
+      const error = new InternalServerError('group  or user Not found');
+      return error;
     }
     return deletedUser;
   },
@@ -32,7 +37,8 @@ export const userRepository = {
   update: async (data, options) => {
     const updateUser = await Model.User.update(data, options);
     if (!updateUser) {
-      throw new ErrorHander('Some error occured while updating the User', 500);
+      const error = new InternalServerError('group  or user Not found');
+      return error;
     }
     return updateUser;
   },

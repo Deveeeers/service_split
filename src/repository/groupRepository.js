@@ -1,5 +1,5 @@
 import { Model } from '../db/models/index.js';
-import { ErrorHander } from '../utils/errorHander.js';
+import { InternalServerError } from '../exceptions/http/internalServer.js';
 
 export const groupRepository = {
   createGroup: async data => {
@@ -9,7 +9,8 @@ export const groupRepository = {
       desc,
     });
     if (!newGroup) {
-      throw new ErrorHander('Error Creating the Group');
+      const error = new InternalServerError(`Error creating the group`);
+      return error;
     }
     return newGroup;
   },
@@ -22,7 +23,8 @@ export const groupRepository = {
       },
     });
     if (!deletedGroup) {
-      throw new ErrorHander('Some error occured while deleting the group');
+      const error = new InternalServerError(`Error deleting the group`);
+      return error;
     }
     return deletedGroup;
   },

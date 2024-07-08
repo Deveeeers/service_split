@@ -1,5 +1,5 @@
-import { ErrorHander } from '../utils/errorHander.js';
 import { Model } from '../db/models/index.js';
+import { InternalServerError } from '../exceptions/http/internalServer.js';
 
 export const groupUserRepository = {
   addUser: async data => {
@@ -11,7 +11,8 @@ export const groupUserRepository = {
       },
     });
     if (existingUser) {
-      throw new ErrorHander('User Already Exists in the group');
+      const error = new InternalServerError('User already exist in group');
+      return error;
     }
     const newUserGroup = await Model.GroupUser.create({
       id: 4,
@@ -23,23 +24,17 @@ export const groupUserRepository = {
 
   deleteUser: async data => {
     const { user_id, group_id } = data;
-    const user = await Model.GroupUser.findOne({
-      where: {
-        user_id,
-        group_id,
-      },
-    });
-
-    if (!user) {
-      throw new ErrorHander('User not found in the group', 404);
-    }
-
     const deletedUser = await Model.GroupUser.destroy({
       where: {
         user_id,
         group_id,
       },
     });
+
+    if (!deletedUser) {
+      const error = new InternalServerError('group  or user Not found');
+      return error;
+    }
 
     return deletedUser;
   },

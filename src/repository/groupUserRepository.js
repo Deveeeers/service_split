@@ -19,7 +19,7 @@ export const groupUserRepository = {
       user_id,
       group_id,
     });
-    throw newUserGroup;
+    return newUserGroup;
   },
 
   deleteUser: async data => {

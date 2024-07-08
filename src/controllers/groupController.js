@@ -1,6 +1,5 @@
 /* eslint-disable no-useless-catch */
-import { groupUserRepository } from '../repository/groupUserRepository.js';
-import { addUserToGroup, createGroupService, deleteGroup } from '../service/group/add.js';
+import { addUserToGroup, createGroupService, deleteGroup, deleteUserFromGroup } from '../service/group/add.js';
 
 export const groupController = {
   createGroup: async (req, res) => {
@@ -32,8 +31,8 @@ export const groupController = {
 
   deleteUserFromGroup: async (req, res) => {
     try {
-      const deleteUser = await groupUserRepository.deleteUser(req);
-      return res.status(200).json({ deleteUser });
+      const deletedUser = await deleteUserFromGroup.process(req);
+      return res.status(200).json({ deletedUser });
     } catch (error) {
       throw error;
     }

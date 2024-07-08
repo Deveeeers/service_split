@@ -1,6 +1,5 @@
 /* eslint-disable no-useless-catch */
-import { userRepository } from '../repository/userRepository.js';
-import { createUser, deleteUser } from '../service/user/add.js';
+import { createUser, deleteUser, updateUser } from '../service/user/add.js';
 
 export const userController = {
   createUser: async (req, res) => {
@@ -23,7 +22,7 @@ export const userController = {
 
   updateUser: async (req, res) => {
     try {
-      const updatedUser = await userRepository.update(req);
+      const updatedUser = await updateUser(req);
       return res.status(200).json({ message: updatedUser });
     } catch (error) {
       throw error;

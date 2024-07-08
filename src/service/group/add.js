@@ -36,3 +36,10 @@ export const addUserToGroup = {
     return welcomeUser;
   },
 };
+
+export const deleteUserFromGroup = {
+  process: async params => {
+    const deletedUser = await groupRepository.deleteGroup(params);
+    return deletedUser;
+  },
+};

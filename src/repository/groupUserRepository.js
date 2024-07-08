@@ -3,27 +3,13 @@ import { InternalServerError } from '../exceptions/http/internalServer.js';
 
 export const groupUserRepository = {
   addUser: async data => {
-    const { group_id, user_id } = data;
-    const existingUser = await Model.GroupUser.findOne({
-      where: {
-        user_id,
-        group_id,
-      },
-    });
-    if (existingUser) {
-      const error = new InternalServerError('User already exist in group');
-      throw error;
-    }
-    const newUserGroup = await Model.GroupUser.create({
-      id: 4,
-      user_id,
-      group_id,
-    });
+    const { group_id, user_id } = data.body;
+    const newUserGroup = await Model.GroupUser.create({ group_id, user_id });
     return newUserGroup;
   },
 
   deleteUser: async data => {
-    const { user_id, group_id } = data;
+    const { user_id, group_id } = data.body;
     const deletedUser = await Model.GroupUser.destroy({
       where: {
         user_id,

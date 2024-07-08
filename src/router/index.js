@@ -13,10 +13,11 @@ router.post(
   aeh(groupController.createGroup),
 );
 router.delete(`/group/:id`, aeh(groupController.deleteGroup));
-router.post('/groupuser', aeh(groupController.addUserToGroup));
-router.delete('/groupuser', aeh(groupController.deleteUserFromGroup));
+router.post('/groupuser', requestValidator(Validations.addUserToGroupBodyValidator, CONSTANTS.REQUEST.BODY), aeh(groupController.addUserToGroup));
+router.delete('/groupuser', requestValidator(Validations.deleteUserToGroupBodyValidator, CONSTANTS.REQUEST.BODY), aeh(groupController.deleteUserFromGroup));
 router.post('/user', requestValidator(Validations.createUserBody, CONSTANTS.REQUEST.BODY), aeh(userController.createUser));
 router.delete('/user/:id', aeh(userController.deleteUser));
+router.put('/user/:id', requestValidator(Validations.UpdateUserBody, CONSTANTS.REQUEST.BODY), userController.updateUser);
 router.post(
   '/expense/:action',
   requestValidator(Validations.Expense.expenseBody, CONSTANTS.REQUEST.BODY),

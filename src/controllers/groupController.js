@@ -1,13 +1,11 @@
 /* eslint-disable no-useless-catch */
-import { groupRepository } from '../repository/groupRepository.js';
 import { groupUserRepository } from '../repository/groupUserRepository.js';
+import { addUserToGroup, createGroupService, deleteGroup } from '../service/group/add.js';
 
 export const groupController = {
   createGroup: async (req, res) => {
     try {
-      const newGroup = await groupRepository.createGroup(req.body);
-      req.body.group_id = newGroup.group_id;
-      const welcomeUser = await groupUserRepository.selfAdd(req);
+      const { newGroup, welcomeUser } = await createGroupService.process(req);
       return res.status(200).json({ newGroup, welcomeUser });
     } catch (error) {
       throw error;
@@ -16,8 +14,8 @@ export const groupController = {
 
   deleteGroup: async (req, res) => {
     try {
-      const deleteGroup = await groupRepository.deleteGroup(req.params);
-      return res.status(200).json({ message: deleteGroup });
+      const deletedGroup = await deleteGroup.process(req);
+      return res.status(200).json({ message: deletedGroup });
     } catch (error) {
       throw error;
     }
@@ -25,7 +23,7 @@ export const groupController = {
 
   addUserToGroup: async (req, res) => {
     try {
-      const welcomeUser = await groupUserRepository.addUser(req.body);
+      const welcomeUser = await addUserToGroup.process(req);
       return res.status(200).json({ welcomeUser });
     } catch (error) {
       throw error;
@@ -34,7 +32,7 @@ export const groupController = {
 
   deleteUserFromGroup: async (req, res) => {
     try {
-      const deleteUser = await groupUserRepository.deleteUser(req.body);
+      const deleteUser = await groupUserRepository.deleteUser(req);
       return res.status(200).json({ deleteUser });
     } catch (error) {
       throw error;

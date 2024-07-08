@@ -1,9 +1,9 @@
-import { HttpError } from "../base.js";
+import { HttpError } from '../base.js';
 
 export class InternalServerError extends HttpError {
-    constructor(message) {
-        super(message);
-        this.name = 'InternalServerError';
-        this.status = 500;
-    }
+  constructor(message) {
+    super(message);
+    this.name = 'InternalServerError';
+    this.status = 500;
+  }
 }

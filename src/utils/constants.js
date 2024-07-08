@@ -6,6 +6,6 @@ export const CONSTANTS = {
   REQUEST: {
     BODY: 'body',
     HEADERS: 'headers',
-    PARAMS: 'params'
-  }
+    PARAMS: 'params',
+  },
 };

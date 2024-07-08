@@ -1,6 +1,5 @@
-import { Expense } from "./expense/index.js";
-
+import { Expense } from './expense/index.js';
 
 export const Validations = {
-    Expense
-}
+  Expense,
+};

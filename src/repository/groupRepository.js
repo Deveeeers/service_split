@@ -1,28 +1,29 @@
 import { Model } from '../db/models/index.js';
-import { ErrorHander } from '../utils/errorHander.js';
+import { InternalServerError } from '../exceptions/http/internalServer.js';
 
 export const groupRepository = {
-  createGroup: async data => {
-    const { group_name, desc } = data;
-    const newGroup = await Model.GroupDetail.create({
-      group_name,
-      desc,
-    });
+  createGroup: async (data, options = {}) => {
+    const newGroup = await Model.GroupDetail.create(data.body, options);
     if (!newGroup) {
-      throw new ErrorHander('Error Creating the Group');
+      const error = new InternalServerError(`Error creating the group`);
+      throw error;
     }
     return newGroup;
   },
 
-  deleteGroup: async data => {
-    const { id } = data;
-    const deletedGroup = await Model.GroupDetail.destroy({
-      where: {
-        group_id: id,
+  deleteGroup: async (data, options = {}) => {
+    const { id } = data.params;
+    const deletedGroup = await Model.GroupDetail.destroy(
+      {
+        where: {
+          uuid: id,
+        },
       },
-    });
+      options,
+    );
     if (!deletedGroup) {
-      throw new ErrorHander('Some error occured while deleting the group');
+      const error = new InternalServerError(`Error deleting the group`);
+      throw error;
     }
     return deletedGroup;
   },

@@ -8,21 +8,30 @@ module.exports = {
      * await queryInterface.createTable('users', { id: Sequelize.INTEGER });
      */
     await queryInterface.createTable(`groupUser`, {
-      group_id: {
+      id: {
+        autoIncrement: true,
+        primaryKey: true,
         type: Sequelize.INTEGER,
+      },
+      group_id: {
+        type: Sequelize.STRING,
         primaryKey: true,
         references: {
           model: `groupDetail`,
-          key: `group_id`,
+          key: `uuid`,
         },
+        onUpdate: 'CASCADE',
+        onDelete: 'CASCADE',
       },
       user_id: {
-        type: Sequelize.INTEGER,
+        type: Sequelize.STRING,
         primaryKey: true,
         references: {
           model: `user`,
-          key: `id`,
+          key: `ulid`,
         },
+        onUpdate: 'CASCADE',
+        onDelete: 'CASCADE',
       },
       created_at: {
         type: Sequelize.DATE,

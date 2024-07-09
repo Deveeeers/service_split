@@ -1,13 +1,15 @@
 module.exports = {
   async up(queryInterface, Sequelize) {
     await queryInterface.createTable(`groupDetail`, {
-      group_id: {
+      id: {
         autoIncrement: true,
         primaryKey: true,
         type: Sequelize.INTEGER,
       },
       uuid: {
         type: Sequelize.STRING,
+        unique: true,
+        allowNull: false,
       },
       group_name: {
         type: Sequelize.STRING,

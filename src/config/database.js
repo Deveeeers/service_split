@@ -1,4 +1,4 @@
-const DB_NAME = process.env.DB_NAME || 'service_split_2';
+const DB_NAME = process.env.DB_NAME || 'service_split_3';
 export const config = {
   local: {
     username: process.env.DB_MYSQL_USER || 'admin',

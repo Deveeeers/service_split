@@ -1,38 +1,39 @@
 import { Model } from '../db/models/index.js';
-import { ErrorHander } from '../utils/errorHander.js';
+import { InternalServerError } from '../exceptions/http/internalServer.js';
 
 export const userRepository = {
-  createUser: async data => {
-    const { ulid, name, email, address, contact_number } = data;
-    const data2 = {
-      ulid,
-      name,
-      email,
-      address,
-      contact_number,
-    };
-    const newUser = await Model.User.create(data2);
-    if (!newUser) throw new ErrorHander('NHI BANAYA PAYYE SARKAAR AAPKA USER', 500);
+  createUser: async (data, options = {}) => {
+    const newUser = await Model.User.create(data.body, options);
+    if (!newUser) {
+      const error = new InternalServerError('group  or user Not found');
+      throw error;
+    }
     return newUser;
   },
 
-  deleteUser: async data => {
-    const { id } = data;
-    const deletedUser = await Model.User.destroy({
-      where: {
-        id,
+  deleteUser: async (data, options = {}) => {
+    const { id: ulid } = data.params;
+    const deletedUser = await Model.User.destroy(
+      {
+        where: {
+          ulid,
+        },
       },
-    });
+      options,
+    );
     if (!deletedUser) {
-      throw new ErrorHander('Some error occured while deleting the User', 500);
+      const error = new InternalServerError('group  or user Not found');
+      throw error;
     }
     return deletedUser;
   },
 
-  update: async (data, options) => {
-    const updateUser = await Model.User.update(data, options);
+  update: async (data, options = {}) => {
+    const { id } = data.params;
+    const updateUser = await Model.User.update(data.body, { where: { ulid: id } }, options);
     if (!updateUser) {
-      throw new ErrorHander('Some error occured while updating the User', 500);
+      const error = new InternalServerError('group  or user Not found');
+      throw error;
     }
     return updateUser;
   },

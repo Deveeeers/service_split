@@ -1,5 +1,4 @@
 import express from 'express';
-import { errorMiddleware } from './middleware/error.js';
 import { router } from './router/index.js';
 
 const app = express();
@@ -7,7 +6,7 @@ const app = express();
 async function main() {
   try {
     app.use(express.json({ limit: '60mb', extends: true }));
-    // await import("../src/db/models/index.js");
+    await import('./db/models/index.js');
 
     const port = process.env.PORT || 4000;
 
@@ -17,8 +16,6 @@ async function main() {
     });
 
     app.use(router);
-
-    app.use(errorMiddleware);
 
     app.listen(port, () => {
       console.log(`app is running on port ${port}`);

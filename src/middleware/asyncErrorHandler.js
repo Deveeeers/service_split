@@ -31,11 +31,11 @@ function asyncErrorHandler(routeHandler) {
         console.error(error);
       }
       if (error instanceof HttpError) {
-        return res.error(error.body, error.status);
+        return res.status(error.status).json(error.message);
       }
       debug(error.message);
       const internalServerError = new Http.InternalServerError(error.message);
-      return res.error(internalServerError.body, internalServerError.status);
+      return res.status(500).json(internalServerError.message);
     }
   }
   return errorHandler;

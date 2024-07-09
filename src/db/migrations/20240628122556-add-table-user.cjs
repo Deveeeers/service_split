@@ -10,6 +10,8 @@ module.exports = {
       },
       ulid: {
         type: Sequelize.STRING,
+        unique: true,
+        allowNull: false,
       },
       name: {
         type: Sequelize.STRING,

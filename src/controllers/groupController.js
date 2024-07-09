@@ -1,27 +1,40 @@
-import { catchAsyncError } from '../middleware/catchAsyncError.js';
-import { groupRepository } from '../repository/groupRepository.js';
-import { groupUserRepository } from '../repository/groupUserRepository.js';
+/* eslint-disable no-useless-catch */
+import { addUserToGroup, createGroupService, deleteGroup, deleteUserFromGroup } from '../service/group/add.js';
 
 export const groupController = {
-  createGroup: catchAsyncError(async (req, res) => {
-    const newGroup = await groupRepository.createGroup(req.body);
-    req.body.group_id = newGroup.group_id;
-    const welcomeUser = await groupUserRepository.addUser(req.body);
-    return res.status(200).json({ newGroup, welcomeUser });
-  }),
+  createGroup: async (req, res) => {
+    try {
+      const { newGroup, welcomeUser } = await createGroupService.process(req);
+      return res.status(200).json({ newGroup, welcomeUser });
+    } catch (error) {
+      throw error;
+    }
+  },
 
-  deleteGroup: catchAsyncError((req, res) => {
-    groupRepository.deleteGroup(req.params);
-    return res.status(200).json({ message: `The Group deleted successfully` });
-  }),
+  deleteGroup: async (req, res) => {
+    try {
+      const deletedGroup = await deleteGroup.process(req);
+      return res.status(200).json({ message: deletedGroup });
+    } catch (error) {
+      throw error;
+    }
+  },
 
-  addUserToGroup: catchAsyncError(async (req, res) => {
-    const welcomeUser = await groupUserRepository.addUser(req.body);
-    return res.status(200).json({ welcomeUser });
-  }),
+  addUserToGroup: async (req, res) => {
+    try {
+      const welcomeUser = await addUserToGroup.process(req);
+      return res.status(200).json({ welcomeUser });
+    } catch (error) {
+      throw error;
+    }
+  },
 
-  deleteUserFromGroup: catchAsyncError(async (req, res) => {
-    const deleteUser = await groupUserRepository.deleteUser(req.body);
-    return res.status(200).json({ deleteUser });
-  }),
+  deleteUserFromGroup: async (req, res) => {
+    try {
+      const deletedUser = await deleteUserFromGroup.process(req);
+      return res.status(200).json({ deletedUser });
+    } catch (error) {
+      throw error;
+    }
+  },
 };

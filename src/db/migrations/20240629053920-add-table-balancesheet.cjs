@@ -7,17 +7,19 @@ module.exports = {
      * await queryInterface.createTable('users', { id: Sequelize.INTEGER });
      */
     await queryInterface.createTable(`balancesheet`, {
-      balancesheet_id: {
+      id: {
         type: Sequelize.INTEGER,
         primaryKey: true,
         autoIncrement: true,
       },
       user_id: {
-        type: Sequelize.INTEGER,
+        type: Sequelize.STRING,
         references: {
           model: `user`,
-          key: `id`,
+          key: `ulid`,
         },
+        onUpdate: 'CASCADE',
+        onDelete: 'CASCADE',
       },
       total_lend: {
         type: Sequelize.FLOAT,

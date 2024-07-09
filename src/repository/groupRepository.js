@@ -2,8 +2,8 @@ import { Model } from '../db/models/index.js';
 import { InternalServerError } from '../exceptions/http/internalServer.js';
 
 export const groupRepository = {
-  createGroup: async data => {
-    const newGroup = await Model.GroupDetail.create(data.body);
+  createGroup: async (data, options = {}) => {
+    const newGroup = await Model.GroupDetail.create(data.body, options);
     if (!newGroup) {
       const error = new InternalServerError(`Error creating the group`);
       throw error;
@@ -11,13 +11,16 @@ export const groupRepository = {
     return newGroup;
   },
 
-  deleteGroup: async data => {
+  deleteGroup: async (data, options = {}) => {
     const { id } = data.params;
-    const deletedGroup = await Model.GroupDetail.destroy({
-      where: {
-        uuid: id,
+    const deletedGroup = await Model.GroupDetail.destroy(
+      {
+        where: {
+          uuid: id,
+        },
       },
-    });
+      options,
+    );
     if (!deletedGroup) {
       const error = new InternalServerError(`Error deleting the group`);
       throw error;

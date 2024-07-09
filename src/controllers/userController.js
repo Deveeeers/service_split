@@ -22,7 +22,7 @@ export const userController = {
 
   updateUser: async (req, res) => {
     try {
-      const updatedUser = await updateUser(req);
+      const updatedUser = await updateUser.process(req);
       return res.status(200).json({ message: updatedUser });
     } catch (error) {
       throw error;

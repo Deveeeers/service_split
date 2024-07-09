@@ -8,6 +8,11 @@ module.exports = {
      * await queryInterface.createTable('users', { id: Sequelize.INTEGER });
      */
     await queryInterface.createTable(`groupUser`, {
+      id: {
+        autoIncrement: true,
+        primaryKey: true,
+        type: Sequelize.INTEGER,
+      },
       group_id: {
         type: Sequelize.STRING,
         primaryKey: true,

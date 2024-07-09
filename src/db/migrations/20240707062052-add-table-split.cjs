@@ -13,10 +13,10 @@ module.exports = {
         primaryKey: true,
       },
       expense_id: {
-        type: Sequelize.INTEGER,
+        type: Sequelize.STRING,
         references: {
           model: `expense`,
-          key: `id`,
+          key: `expense_ulid`,
         },
         onUpdate: 'CASCADE',
         onDelete: 'CASCADE',

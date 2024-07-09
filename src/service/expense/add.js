@@ -53,7 +53,7 @@ export const AddExpense = {
         totalSplitAmount += entry.split_amount;
 
         splitData.push({
-          expense_id: expense.id,
+          expense_id: expense.expense_ulid,
           owe_by_id: user.ulid,
           amount: entry.split_amount,
         });

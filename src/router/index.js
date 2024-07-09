@@ -6,15 +6,22 @@ import { requestValidator, aeh } from '../middleware/index.js';
 
 export const router = Router();
 
-router.post('/group', groupController.createGroup);
-router.delete(`/group/:id`, groupController.deleteGroup);
-router.post('/groupuser', groupController.addUserToGroup);
-router.delete('/groupuser', groupController.deleteUserFromGroup);
-router.post('/user', userController.createUser);
-router.delete('/user/:id', userController.deleteUser);
+router.post(
+  '/group',
+  requestValidator(Validations.createGroupBodyValidator, CONSTANTS.REQUEST.BODY),
+  requestValidator(Validations.createGroupHeaderValidator, CONSTANTS.REQUEST.HEADERS),
+  aeh(groupController.createGroup),
+);
+router.delete(`/group/:id`, aeh(groupController.deleteGroup));
+router.post('/groupuser', requestValidator(Validations.addUserToGroupBodyValidator, CONSTANTS.REQUEST.BODY), aeh(groupController.addUserToGroup));
+router.delete('/groupuser', requestValidator(Validations.deleteUserToGroupBodyValidator, CONSTANTS.REQUEST.BODY), aeh(groupController.deleteUserFromGroup));
+router.post('/user', requestValidator(Validations.createUserBody, CONSTANTS.REQUEST.BODY), aeh(userController.createUser));
+router.delete('/user/:id', aeh(userController.deleteUser));
+router.put('/user/:id', requestValidator(Validations.UpdateUserBody, CONSTANTS.REQUEST.BODY), userController.updateUser);
 router.post(
   '/expense/:action',
   requestValidator(Validations.Expense.expenseBody, CONSTANTS.REQUEST.BODY),
   requestValidator(Validations.Expense.expenseHeaders, CONSTANTS.REQUEST.HEADERS),
   aeh(ExpenseController.add),
 );
+router.delete('/expenseg/:id', ExpenseController.deleteExpense);

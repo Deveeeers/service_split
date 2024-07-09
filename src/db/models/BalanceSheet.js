@@ -10,9 +10,6 @@ export default (sequelize, DataTypes) => {
 
   Balancesheet.init(
     {
-      balancesheet_id: {
-        type: DataTypes.STRING,
-      },
       user_id: {
         type: DataTypes.STRING,
       },

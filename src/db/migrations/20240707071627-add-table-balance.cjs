@@ -14,18 +14,22 @@ module.exports = {
         type: Sequelize.INTEGER,
       },
       user_id: {
-        type: Sequelize.INTEGER,
+        type: Sequelize.STRING,
         references: {
           model: `user`,
-          key: `id`,
+          key: `ulid`,
         },
+        onUpdate: 'CASCADE',
+        onDelete: 'CASCADE',
       },
       another_user_id: {
-        type: Sequelize.INTEGER,
+        type: Sequelize.STRING,
         references: {
           model: `user`,
-          key: `id`,
+          key: `ulid`,
         },
+        onUpdate: 'CASCADE',
+        onDelete: 'CASCADE',
       },
       lent_money: {
         type: Sequelize.INTEGER,

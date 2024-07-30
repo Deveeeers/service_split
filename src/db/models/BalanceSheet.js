@@ -15,15 +15,19 @@ export default (sequelize, DataTypes) => {
       },
       total_owe: {
         type: DataTypes.FLOAT,
+        defaultValue: 0,
       },
       total_lend: {
         type: DataTypes.FLOAT,
+        defaultValue: 0,
       },
       total_expense: {
         type: DataTypes.FLOAT,
+        defaultValue: 0,
       },
       total_payment: {
         type: DataTypes.FLOAT,
+        defaultValue: 0,
       },
     },
     {

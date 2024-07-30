@@ -1,8 +1,22 @@
-import { groupRepository, expenseRepository, userRepository, splitRepository } from '../../repository/index.js';
+import { groupRepository, expenseRepository, userRepository, splitRepository, balanceRepository, balanceSheetRepository } from '../../repository/index.js';
 import { Model } from '../../db/models/index.js';
 import { Common } from '../../utils/index.js';
+import { Http } from '../../exceptions/index.js';
 
 const { sequelize } = Model;
+
+function getLentMoney(lentMoney,oweMoney, entry){
+    if(!balanceData) return 0;
+    const amount = lentMoney - oweMoney - entry.split_amount;
+    if(amount <0) return 0;
+    return amount;
+}
+function getOweMoney(lentMoney,oweMoney, entry){
+    if(!balanceData) return entry.split_amount;
+    const amount = oweMoney + entry.split_amount - lentMoney;
+    if(amount <0) return 0;
+    return amount;
+}
 
 export const AddExpense = {
   process: async params => {
@@ -20,19 +34,17 @@ export const AddExpense = {
       });
 
       if (!group || !userDetails) {
-        const error = new Error('group  or user Not found');
-        error.status = 404;
-        return error;
+        const error = new Http.NotFoundError('user not found')
+        throw error;
       }
       const expenseData = {
         expense_ulid: Common.createUlid(),
         title: params.title,
         desc: params.desc || '',
         amount: params.total_amount,
-        group_id: group.uuid,
-        paid_by_id: userDetails.ulid,
+        group_id: group.group_id,
+        paid_by_id: userDetails.id,
       };
-      console.log(expenseData);
 
       const expense = await expenseRepository.create(expenseData, { transaction });
 
@@ -42,7 +54,7 @@ export const AddExpense = {
       for (const entry of params.split) {
         const user = await userRepository.get({
           where: {
-            ulid: params.user_id,
+            ulid: entry.user_id,
           },
         });
         if (!user) {
@@ -53,9 +65,57 @@ export const AddExpense = {
         totalSplitAmount += entry.split_amount;
 
         splitData.push({
-          expense_id: expense.expense_ulid,
-          owe_by_id: user.ulid,
+          expense_id: expense.id,
+          owe_by_id: user.id,
           amount: entry.split_amount,
+        });
+        const balanceData = await balanceRepository.get({where: {
+            user_id: entry.user_id,
+            another_user_id: params.user_id,
+        }});
+        const lentMoney = getLentMoney(balanceData, entry); 
+        const oweMoney = getOweMoney(balanceData, entry); 
+        const updatedBalanceData = {
+            user_id: entry.user_id,
+            another_user_id: params.user_id,
+            lent_money: lentMoney,
+            owe_money: oweMoney,
+        };
+        await balanceRepository.upsert(updatedBalanceData, {where: {
+            user_id: entry.user_id,
+            another_user_id: params.user_id,
+        },
+    transaction,});
+        const updatedDataOtherSide = {
+            user_id: params.user_id,
+            another_user_id: entry.user_id,
+            lent_money: oweMoney,
+            owe_money: lentMoney,
+        };
+        await balanceRepository.upsert(updatedDataOtherSide, {
+            where: {
+                user_id: params.user_id,
+                another_user_id: entry.user_id,
+            },
+            transaction,
+        });
+
+        const balancesheetData = await balanceSheetRepository.get({where: {
+            user_id: entry.user_id,
+        }});
+        const totalOwe = getOweMoney(balancesheetData.total_owe, balancesheetData.total_lent, splitAmount);
+        const totalLent = getLentMoney(balancesheetData.total_owe, balancesheetData.total_lent, splitAmount);
+        const totalExpense = balancesheetData.total_expense + split_amount;
+        const updatedData = {
+            total_owe:totalOwe,
+            total_lent: totalLent,
+            total_expense: totalExpense,
+        };
+        await balanceSheetRepository.update(updatedData, {
+            where: {
+                user_id: entry.user_id,
+            },
+            transaction,
         });
       }
 
@@ -65,6 +125,7 @@ export const AddExpense = {
         return error;
       }
       const split = await splitRepository.bulkCreate(splitData, { transaction });
+      
       await transaction.commit();
       return split;
     } catch (error) {
@@ -73,12 +134,5 @@ export const AddExpense = {
       }
       throw error;
     }
-  },
-};
-
-export const deleteExpense = {
-  process: async params => {
-    const deletedExpense = await expenseRepository.delete(params);
-    return deletedExpense;
   },
 };

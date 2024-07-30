@@ -24,4 +24,4 @@ router.post(
   requestValidator(Validations.Expense.expenseHeaders, CONSTANTS.REQUEST.HEADERS),
   aeh(ExpenseController.add),
 );
-router.delete('/expenseg/:id', ExpenseController.deleteExpense);
+router.delete('/expenseg/:id', aeh(ExpenseController.deleteExpense));

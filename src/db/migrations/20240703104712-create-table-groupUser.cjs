@@ -33,6 +33,9 @@ module.exports = {
         onUpdate: 'CASCADE',
         onDelete: 'CASCADE',
       },
+      role: {
+        type: Sequelize.STRING,
+      },
       created_at: {
         type: Sequelize.DATE,
         defaultValue: Sequelize.literal(`CURRENT_TIMESTAMP`),

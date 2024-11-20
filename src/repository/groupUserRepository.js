@@ -8,47 +8,29 @@ export const groupUserRepository = {
     return newUserGroup;
   },
 
-  deleteUser: async (data, options = {}) => {
-    const { user_id, group_id } = data.body;
+  deleteUser: async (options) => {
     const deletedUser = await Model.GroupUser.destroy(
-      {
-        where: {
-          user_id,
-          group_id,
-        },
-      },
-      options,
+     options
     );
-
-    if (!deletedUser) {
-      const error = new InternalServerError('group  or user Not found');
-      throw error;
-    }
-
     return deletedUser;
   },
 
-  selfAdd: async (data, options = {}) => {
-    const { group_id } = data.body;
-    const { user_id } = data.headers;
-    const newUserGroup = await Model.GroupUser.create(
-      {
-        group_id,
-        user_id,
-      },
+  addUser: async (data, options = {}) => {
+    const addedUsers = await Model.GroupUser.create(
+      data,
       options,
     );
-    return newUserGroup;
+    return addedUsers;
   },
-  get: async (data, options = {}) => {
-    const { group_id, user_id } = data.body;
-    const UserGroup = await Model.GroupUser.findOne({
-      where: {
-        group_id,
-        user_id,
-      },
-      ...options, // Spread the options into the findOne method's options object
-    });
+  addMultiple: async (data, options = {}) => {
+    const addedUsers = await Model.GroupUser.bulkCreate(
+      data,
+      options,
+    );
+    return addedUsers;
+  },
+  get: async (options) => {
+    const UserGroup = await Model.GroupUser.findOne(options);
     return UserGroup;
   },
 };

@@ -4,10 +4,7 @@ import { InternalServerError } from '../exceptions/http/internalServer.js';
 export const userRepository = {
   createUser: async (data, options = {}) => {
     const newUser = await Model.User.create(data, options);
-    if (!newUser) {
-      const error = new InternalServerError('group  or user Not found');
-      throw error;
-    }
+   
     return newUser;
   },
 
@@ -25,6 +22,11 @@ export const userRepository = {
 
   get: async options => {
     const userDetails = Model.User.findOne(options);
+    return userDetails;
+  },
+
+  getAll: async options => {
+    const userDetails = Model.User.findAll(options);
     return userDetails;
   },
 };

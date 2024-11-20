@@ -4,7 +4,13 @@ import { addUserToGroup, createGroupService, deleteGroup, deleteUserFromGroup } 
 export const groupController = {
   createGroup: async (req, res) => {
     try {
-      const { newGroup, welcomeUser } = await createGroupService.process(req);
+      const params = {
+        ...req.body,
+        ...req.params,
+        ...req.headers,
+        user: res.locals.user
+      }
+      const { newGroup, welcomeUser } = await createGroupService.process(params);
       return res.status(200).json({ newGroup, welcomeUser });
     } catch (error) {
       throw error;
@@ -13,7 +19,12 @@ export const groupController = {
 
   deleteGroup: async (req, res) => {
     try {
-      const deletedGroup = await deleteGroup.process(req);
+      const params = {
+        ...req.body,
+        ...req.params,
+        user: res.locals.user
+      }
+      const deletedGroup = await deleteGroup.process(params);
       return res.status(200).json({ message: deletedGroup });
     } catch (error) {
       throw error;
@@ -22,8 +33,13 @@ export const groupController = {
 
   addUserToGroup: async (req, res) => {
     try {
-      const welcomeUser = await addUserToGroup.process(req);
-      return res.status(200).json({ welcomeUser });
+      const params = {
+        ...req.body,
+        ...req.params,
+        user: res.locals.user
+      }
+      await addUserToGroup.process(params);
+      return res.status(200).json({message: "user added successfully"});
     } catch (error) {
       throw error;
     }
@@ -31,8 +47,13 @@ export const groupController = {
 
   deleteUserFromGroup: async (req, res) => {
     try {
-      const deletedUser = await deleteUserFromGroup.process(req);
-      return res.status(200).json({ deletedUser });
+      const params = {
+        ...req.body,
+        ...req.params,
+        user: res.locals.user
+      }
+      const deletedUser = await deleteUserFromGroup.process(params);
+      return res.status(200).json({message: "user deleted successfully"});
     } catch (error) {
       throw error;
     }

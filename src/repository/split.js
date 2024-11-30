@@ -9,4 +9,12 @@ export const splitRepository = {
     const data = await Model.Split.bulkCreate(params, options);
     return data;
   },
+  destroy: async (options = {}) => {
+    const data = await Model.Split.delete(options);
+    return data;
+  },
+  findAll: async (options = {}) => {
+    const data = await Model.Split.findAll(options);
+    return data;
+  },
 };

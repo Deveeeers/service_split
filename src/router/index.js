@@ -19,9 +19,17 @@ router.post('/user', requestValidator(Validations.createUserBody, CONSTANTS.REQU
 router.delete('/user/:id', aeh(userController.deleteUser));
 router.put('/user/:id', requestValidator(Validations.UpdateUserBody, CONSTANTS.REQUEST.BODY), userController.updateUser);
 router.post(
-  '/expense/:action',
+  '/expense/add',
   requestValidator(Validations.Expense.expenseBody, CONSTANTS.REQUEST.BODY),
   requestValidator(Validations.Expense.expenseHeaders, CONSTANTS.REQUEST.HEADERS),
   aeh(ExpenseController.add),
 );
-router.delete('/expenseg/:id', aeh(ExpenseController.deleteExpense));
+router.post(
+  '/expense/edit/:expense_id',
+  requestValidator(Validations.Expense.expenseBody, CONSTANTS.REQUEST.BODY),
+  requestValidator(Validations.Expense.expenseHeaders, CONSTANTS.REQUEST.HEADERS),
+  requestValidator(Validations.Expense.expenseParams, CONSTANTS.REQUEST.PARAMS),
+  aeh(ExpenseController.editExpense),
+);
+router.delete('/expense/:expense_id', requestValidator(Validations.Expense.expenseHeaders, CONSTANTS.REQUEST.HEADERS),
+requestValidator(Validations.Expense.expenseParams, CONSTANTS.REQUEST.PARAMS),aeh(ExpenseController.deleteExpense));

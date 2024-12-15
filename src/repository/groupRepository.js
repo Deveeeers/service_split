@@ -3,7 +3,7 @@ import { InternalServerError } from '../exceptions/http/internalServer.js';
 
 export const groupRepository = {
   createGroup: async (data, options = {}) => {
-    const newGroup = await Model.GroupDetail.create(data.body, options);
+    const newGroup = await Model.GroupDetail.create(data, options);
     if (!newGroup) {
       const error = new InternalServerError(`Error creating the group`);
       throw error;

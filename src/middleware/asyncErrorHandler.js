@@ -31,7 +31,12 @@ function asyncErrorHandler(routeHandler) {
         console.error(error);
       }
       if (error instanceof HttpError) {
-        return res.status(error.status).json(error.message);
+        return res.status(error.status).json({
+         error: {
+          mesage:  error.message,
+          name: error.name ?? ''
+         }
+        });
       }
       debug(error.message);
       const internalServerError = new Http.InternalServerError(error.message);

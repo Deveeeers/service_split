@@ -4,7 +4,7 @@ import { createUser, deleteUser, updateUser } from '../service/user/add.js';
 export const userController = {
   createUser: async (req, res) => {
     try {
-      const newUser = await createUser.process(req);
+      const newUser = await createUser.process(req.body);
       return res.status(200).json({ newUser });
     } catch (error) {
       throw error;
@@ -13,7 +13,11 @@ export const userController = {
 
   deleteUser: async (req, res) => {
     try {
-      const deletedUser = await deleteUser.process(req);
+      const params = {
+        ...req.body,
+        ...req.params,
+      }
+      const deletedUser = await deleteUser.process(params);
       return res.status(200).json({ message: deletedUser });
     } catch (error) {
       throw error;
@@ -22,7 +26,11 @@ export const userController = {
 
   updateUser: async (req, res) => {
     try {
-      const updatedUser = await updateUser.process(req);
+      const params = {
+        ...req.body,
+        ...req.params,
+      }
+      const updatedUser = await updateUser.process(params);
       return res.status(200).json({ message: updatedUser });
     } catch (error) {
       throw error;

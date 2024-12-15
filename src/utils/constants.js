@@ -8,4 +8,8 @@ export const CONSTANTS = {
     HEADERS: 'headers',
     PARAMS: 'params',
   },
+  ROLES: {
+    MEMBER: 'member',
+    ADMIN: 'admin'
+  }
 };

@@ -15,7 +15,7 @@ let sequelize;
 const main = async () => {
   try {
     sequelize = new Sequelize(config.database, config.username, config.password, config);
-    sequelize
+    await sequelize
       .authenticate()
       .then(async () => {
         console.info('Database connection has been established successfully.');

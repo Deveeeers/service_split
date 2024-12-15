@@ -5,6 +5,7 @@ export const createGroupBodyValidator = Joi.object({
     .min(3)
     .required(),
   desc: Joi.string().required(),
+  user_ids: Joi.array().items(Joi.string()).min(1).required(),
 });
 
 export const createGroupHeaderValidator = Joi.object({
@@ -12,11 +13,11 @@ export const createGroupHeaderValidator = Joi.object({
 }).unknown(true);
 
 export const addUserToGroupBodyValidator = Joi.object({
-  user_id: Joi.required(),
+  new_user_id: Joi.required(),
   group_id: Joi.required(),
 });
 
 export const deleteUserToGroupBodyValidator = Joi.object({
-  user_id: Joi.required(),
+  remove_user_id: Joi.required(),
   group_id: Joi.required(),
 });

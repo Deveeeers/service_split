@@ -18,7 +18,7 @@ export default (sequelize, DataTypes) => {
       role: {
         type: DataTypes.STRING,
         primaryKey: true,
-        defaultValue: "member"
+        defaultValue: 'member',
       },
     },
     {

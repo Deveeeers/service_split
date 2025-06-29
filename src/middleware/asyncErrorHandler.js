@@ -32,10 +32,10 @@ function asyncErrorHandler(routeHandler) {
       }
       if (error instanceof HttpError) {
         return res.status(error.status).json({
-         error: {
-          mesage:  error.message,
-          name: error.name ?? ''
-         }
+          error: {
+            mesage: error.message,
+            name: error.name ?? '',
+          },
         });
       }
       debug(error.message);

@@ -11,7 +11,9 @@ export const createUserBody = Joi.object({
 
 export const UpdateUserBody = Joi.object({
   name: Joi.string().optional(),
-  email: Joi.string().optional().email(),
+  email: Joi.string()
+    .optional()
+    .email(),
   address: Joi.string().optional(),
   contact_number: Joi.string().optional(),
 }).or('name', 'email', 'address', 'contact_number');

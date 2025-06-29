@@ -16,7 +16,7 @@ export const userController = {
       const params = {
         ...req.body,
         ...req.params,
-      }
+      };
       const deletedUser = await deleteUser.process(params);
       return res.status(200).json({ message: deletedUser });
     } catch (error) {
@@ -29,9 +29,12 @@ export const userController = {
       const params = {
         ...req.body,
         ...req.params,
-      }
+      };
       const updatedUser = await updateUser.process(params);
-      return res.status(200).json({ message: updatedUser });
+      return res.status(200).json({
+        message: 'User updated successfully',
+        user: updatedUser,
+      });
     } catch (error) {
       throw error;
     }

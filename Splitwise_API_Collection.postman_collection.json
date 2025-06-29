@@ -1,0 +1,898 @@
+{
+	"info": {
+		"_postman_id": "splitwise-api-collection",
+		"name": "Splitwise API Collection",
+		"description": "Complete API collection for Splitwise expense splitting application",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "User Management",
+			"item": [
+				{
+					"name": "Create User",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"name\": \"John Doe\",\n  \"email\": \"john.doe@example.com\",\n  \"address\": \"123 Main St, City, State\",\n  \"contact_number\": \"+1234567890\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/user",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"user"
+							]
+						},
+						"description": "Create a new user account"
+					}
+				},
+				{
+					"name": "Update User",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"name\": \"John Smith\",\n  \"contact_number\": \"+1987654321\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/user/{{user_id}}",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"user",
+								"{{user_id}}"
+							]
+						},
+						"description": "Update user information"
+					}
+				},
+				{
+					"name": "Delete User",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/user/{{user_id}}",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"user",
+								"{{user_id}}"
+							]
+						},
+						"description": "Delete a user account"
+					}
+				}
+			],
+			"description": "APIs for managing users"
+		},
+		{
+			"name": "Group Management",
+			"item": [
+				{
+					"name": "Create Group",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "user_id",
+								"value": "{{user_id}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"group_name\": \"Vacation Trip 2024\",\n  \"desc\": \"Expenses for our annual vacation trip\",\n  \"user_ids\": [\"{{user_id}}\", \"{{other_user_id}}\"]\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/group/create",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"group",
+								"create"
+							]
+						},
+						"description": "Create a new expense group"
+					}
+				},
+				{
+					"name": "Add User to Group",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "user_id",
+								"value": "{{user_id}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"new_user_id\": \"{{new_user_id}}\",\n  \"group_id\": \"{{group_id}}\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/group/user/add",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"group",
+								"user",
+								"add"
+							]
+						},
+						"description": "Add a new user to an existing group"
+					}
+				},
+				{
+					"name": "Remove User from Group",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "user_id",
+								"value": "{{user_id}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"remove_user_id\": \"{{remove_user_id}}\",\n  \"group_id\": \"{{group_id}}\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/group/user/delete",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"group",
+								"user",
+								"delete"
+							]
+						},
+						"description": "Remove a user from a group"
+					}
+				},
+				{
+					"name": "Delete Group",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "user_id",
+								"value": "{{user_id}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/group/{{group_id}}",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"group",
+								"{{group_id}}"
+							]
+						},
+						"description": "Delete an entire group"
+					}
+				},
+				{
+					"name": "Get All Groups",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "user_id",
+								"value": "{{user_id}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/groups/all",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"groups",
+								"all"
+							]
+						},
+						"description": "Get all groups in the system"
+					}
+				},
+				{
+					"name": "Get User's Groups",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "user_id",
+								"value": "{{user_id}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/user/groups",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"user",
+								"groups"
+							]
+						},
+						"description": "Get all groups that a user belongs to"
+					}
+				}
+			],
+			"description": "APIs for managing groups"
+		},
+		{
+			"name": "Expense Management",
+			"item": [
+				{
+					"name": "Add Expense",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "user_id",
+								"value": "{{user_id}}",
+								"type": "text"
+							},
+							{
+								"key": "group_uuid",
+								"value": "{{group_id}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"total_amount\": 100.50,\n  \"currency\": \"USD\",\n  \"title\": \"Dinner at Restaurant\",\n  \"desc\": \"Team dinner after project completion\",\n  \"split\": [\n    {\n      \"user_id\": \"{{user_id}}\",\n      \"split_amount\": 25.00\n    },\n    {\n      \"user_id\": \"{{other_user_id}}\",\n      \"split_amount\": 35.50\n    },\n    {\n      \"user_id\": \"{{third_user_id}}\",\n      \"split_amount\": 40.00\n    }\n  ]\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/expense/add",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"expense",
+								"add"
+							]
+						},
+						"description": "Create a new expense and split it among group members"
+					}
+				},
+				{
+					"name": "Edit Expense",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "user_id",
+								"value": "{{user_id}}",
+								"type": "text"
+							},
+							{
+								"key": "group_uuid",
+								"value": "{{group_id}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"total_amount\": 120.00,\n  \"currency\": \"USD\",\n  \"title\": \"Updated Dinner at Restaurant\",\n  \"desc\": \"Team dinner with updated amounts\",\n  \"split\": [\n    {\n      \"user_id\": \"{{user_id}}\",\n      \"split_amount\": 30.00\n    },\n    {\n      \"user_id\": \"{{other_user_id}}\",\n      \"split_amount\": 40.00\n    },\n    {\n      \"user_id\": \"{{third_user_id}}\",\n      \"split_amount\": 50.00\n    }\n  ]\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/expense/edit/{{expense_id}}",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"expense",
+								"edit",
+								"{{expense_id}}"
+							]
+						},
+						"description": "Update an existing expense"
+					}
+				},
+				{
+					"name": "Delete Expense",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "user_id",
+								"value": "{{user_id}}",
+								"type": "text"
+							},
+							{
+								"key": "group_uuid",
+								"value": "{{group_id}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/expense/{{expense_id}}",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"expense",
+								"{{expense_id}}"
+							]
+						},
+						"description": "Delete an expense and update all related balances"
+					}
+				},
+				{
+					"name": "Get Expense Details",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "user_id",
+								"value": "{{user_id}}",
+								"type": "text"
+							},
+							{
+								"key": "group_uuid",
+								"value": "{{group_id}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/expense/{{expense_id}}",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"expense",
+								"{{expense_id}}"
+							]
+						},
+						"description": "Get detailed information about a specific expense"
+					}
+				},
+				{
+					"name": "Get Group Expenses",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "user_id",
+								"value": "{{user_id}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/group/{{group_id}}/expenses",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"group",
+								"{{group_id}}",
+								"expenses"
+							]
+						},
+						"description": "Get all expenses for a specific group"
+					}
+				}
+			],
+			"description": "APIs for managing expenses"
+		},
+		{
+			"name": "Balance Management",
+			"item": [
+				{
+					"name": "Get User Total Balance",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "user_id",
+								"value": "{{user_id}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/user/balance/total",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"user",
+								"balance",
+								"total"
+							]
+						},
+						"description": "Get user's overall balance across all relationships"
+					}
+				},
+				{
+					"name": "Get Balance with Specific User",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "user_id",
+								"value": "{{user_id}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/user/balance/{{other_user_id}}",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"user",
+								"balance",
+								"{{other_user_id}}"
+							]
+						},
+						"description": "Get balance between current user and another user"
+					}
+				},
+				{
+					"name": "Settle Balance",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "user_id",
+								"value": "{{user_id}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"other_user_id\": \"{{other_user_id}}\",\n  \"amount\": 25.50\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/user/settle-balance",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"user",
+								"settle-balance"
+							]
+						},
+						"description": "Record a payment between users to settle balances"
+					}
+				},
+				{
+					"name": "Get User Expense Summary",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "user_id",
+								"value": "{{user_id}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/user/expense-summary",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"user",
+								"expense-summary"
+							]
+						},
+						"description": "Get comprehensive expense and balance summary for a user"
+					}
+				}
+			],
+			"description": "APIs for managing balances and settlements"
+		},
+		{
+			"name": "Complete Workflow Examples",
+			"item": [
+				{
+					"name": "1. Create Alice",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"name\": \"Alice Johnson\",\n  \"email\": \"alice@example.com\",\n  \"address\": \"123 Oak Street\",\n  \"contact_number\": \"+1234567890\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/user",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"user"
+							]
+						},
+						"description": "Step 1: Create Alice user"
+					}
+				},
+				{
+					"name": "2. Create Bob",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"name\": \"Bob Smith\",\n  \"email\": \"bob@example.com\",\n  \"address\": \"456 Pine Avenue\",\n  \"contact_number\": \"+1987654321\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/user",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"user"
+							]
+						},
+						"description": "Step 2: Create Bob user"
+					}
+				},
+				{
+					"name": "3. Create Roommates Group",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "user_id",
+								"value": "{{alice_user_id}}",
+								"type": "text",
+								"description": "Replace with Alice's actual user ID"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"group_name\": \"Roommates\",\n  \"desc\": \"Shared apartment expenses\",\n  \"user_ids\": [\"{{alice_user_id}}\", \"{{bob_user_id}}\"]\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/group/create",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"group",
+								"create"
+							]
+						},
+						"description": "Step 3: Create roommates group with Alice and Bob"
+					}
+				},
+				{
+					"name": "4. Add Rent Expense",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "user_id",
+								"value": "{{alice_user_id}}",
+								"type": "text"
+							},
+							{
+								"key": "group_uuid",
+								"value": "{{roommates_group_id}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"total_amount\": 2000.00,\n  \"currency\": \"USD\",\n  \"title\": \"Monthly Rent\",\n  \"desc\": \"Apartment rent for January 2024\",\n  \"split\": [\n    {\n      \"user_id\": \"{{alice_user_id}}\",\n      \"split_amount\": 1000.00\n    },\n    {\n      \"user_id\": \"{{bob_user_id}}\",\n      \"split_amount\": 1000.00\n    }\n  ]\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/expense/add",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"expense",
+								"add"
+							]
+						},
+						"description": "Step 4: Alice pays rent and splits with Bob"
+					}
+				},
+				{
+					"name": "5. Check Alice's Total Balance",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "user_id",
+								"value": "{{alice_user_id}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/user/balance/total",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"user",
+								"balance",
+								"total"
+							]
+						},
+						"description": "Step 5: Check Alice's overall balance"
+					}
+				},
+				{
+					"name": "6. Check Balance Between Alice and Bob",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "user_id",
+								"value": "{{alice_user_id}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/user/balance/{{bob_user_id}}",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"user",
+								"balance",
+								"{{bob_user_id}}"
+							]
+						},
+						"description": "Step 6: Check balance between Alice and Bob"
+					}
+				},
+				{
+					"name": "7. Bob Settles with Alice",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "user_id",
+								"value": "{{bob_user_id}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"other_user_id\": \"{{alice_user_id}}\",\n  \"amount\": 1000.00\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/user/settle-balance",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"user",
+								"settle-balance"
+							]
+						},
+						"description": "Step 7: Bob pays Alice his share"
+					}
+				},
+				{
+					"name": "8. Get Group Expenses",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "user_id",
+								"value": "{{alice_user_id}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/group/{{roommates_group_id}}/expenses",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"group",
+								"{{roommates_group_id}}",
+								"expenses"
+							]
+						},
+						"description": "Step 8: View all expenses in the roommates group"
+					}
+				},
+				{
+					"name": "9. Get Alice's Expense Summary",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "user_id",
+								"value": "{{alice_user_id}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/user/expense-summary",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"user",
+								"expense-summary"
+							]
+						},
+						"description": "Step 9: Get Alice's comprehensive expense summary"
+					}
+				}
+			],
+			"description": "Complete workflow example from user creation to expense management"
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "base_url",
+			"value": "http://localhost:3000",
+			"type": "string"
+		},
+		{
+			"key": "user_id",
+			"value": "01HXXX1234567890ABCDEF",
+			"type": "string",
+			"description": "Current user ID"
+		},
+		{
+			"key": "other_user_id",
+			"value": "01HYYY1234567890ABCDEF",
+			"type": "string",
+			"description": "Another user ID for testing"
+		},
+		{
+			"key": "third_user_id",
+			"value": "01HZZZ1234567890ABCDEF",
+			"type": "string",
+			"description": "Third user ID for testing"
+		},
+		{
+			"key": "group_id",
+			"value": "01HGGG1234567890ABCDEF",
+			"type": "string",
+			"description": "Group ID"
+		},
+		{
+			"key": "expense_id",
+			"value": "01HEXXX1234567890ABCDEF",
+			"type": "string",
+			"description": "Expense ID"
+		},
+		{
+			"key": "alice_user_id",
+			"value": "alice_id_placeholder",
+			"type": "string",
+			"description": "Alice's user ID for workflow examples"
+		},
+		{
+			"key": "bob_user_id",
+			"value": "bob_id_placeholder",
+			"type": "string",
+			"description": "Bob's user ID for workflow examples"
+		},
+		{
+			"key": "roommates_group_id",
+			"value": "roommates_group_placeholder",
+			"type": "string",
+			"description": "Roommates group ID for workflow examples"
+		},
+		{
+			"key": "new_user_id",
+			"value": "new_user_placeholder",
+			"type": "string",
+			"description": "New user ID to be added to group"
+		},
+		{
+			"key": "remove_user_id",
+			"value": "remove_user_placeholder",
+			"type": "string",
+			"description": "User ID to be removed from group"
+		}
+	]
+}

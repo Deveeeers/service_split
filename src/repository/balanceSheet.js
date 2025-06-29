@@ -9,8 +9,15 @@ export const balanceSheetRepository = {
     const data = await Model.Balancesheet.findOne(params, options);
     return data;
   },
-  update: async (params, options = {}) => {
-    const data = await Model.Balancesheet.update(params, options);
+  update: async (updateData, whereClause, options = {}) => {
+    const data = await Model.Balancesheet.update(updateData, {
+      where: whereClause,
+      ...options,
+    });
+    return data;
+  },
+  findOrCreate: async (options = {}) => {
+    const data = await Model.Balancesheet.findOrCreate(options);
     return data;
   },
 };

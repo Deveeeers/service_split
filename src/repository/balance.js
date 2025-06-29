@@ -5,15 +5,13 @@ export const balanceRepository = {
     const data = await Model.Balance.create(params, options);
     return data;
   },
-  upsert:async (params, options = {}) => {
+  upsert: async (params, options = {}) => {
     let instance = await Model.Balance.findOne(options);
-    if(instance){
-        await Model.Balance.update(params, options);
-       
+    if (instance) {
+      await Model.Balance.update(params, options);
+    } else {
+      instance = await Model.Balance.create(params, options);
     }
-   else {
-    instance =  await Model.Balance.create(params, options);
-   }
     return instance;
   },
   update: async (params, options = {}) => {
@@ -24,9 +22,15 @@ export const balanceRepository = {
     const data = await Model.Balance.findOne(options);
     return data;
   },
-  delete: async (params, options = {}) => {
-    console.log(params?.params?.id);
-    const data = await Model.Balance.destroy(options);
+  delete: async (whereClause, options = {}) => {
+    const data = await Model.Balance.destroy({
+      where: whereClause,
+      ...options,
+    });
+    return data;
+  },
+  getAll: async (options = {}) => {
+    const data = await Model.Balance.findAll(options);
     return data;
   },
 };

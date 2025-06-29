@@ -5,5 +5,5 @@ import { expenseParams } from './expenseParams.js';
 export const Expense = {
   expenseBody,
   expenseHeaders,
-  expenseParams
+  expenseParams,
 };

@@ -1,16 +1,11 @@
-import { 
-  expenseRepository, 
-  splitRepository, 
-  balanceRepository, 
-  balanceSheetRepository 
-} from '../../repository/index.js';
+import { expenseRepository, splitRepository, balanceRepository, balanceSheetRepository } from '../../repository/index.js';
 import { Model } from '../../db/models/index.js';
 import { Http } from '../../exceptions/index.js';
 
 const { sequelize } = Model;
 
 export const DeleteExpense = {
-  process: async (params) => {
+  process: async params => {
     const transaction = await sequelize.transaction();
     try {
       // Validate and fetch expense
@@ -54,7 +49,7 @@ export const DeleteExpense = {
               lent_money: Math.max(0, updatedLent),
               owe_money: Math.max(0, updatedOwe),
             },
-            { transaction }
+            { transaction },
           );
 
           // Adjust the reverse relationship
@@ -65,7 +60,7 @@ export const DeleteExpense = {
               lent_money: Math.max(0, updatedOwe),
               owe_money: Math.max(0, updatedLent),
             },
-            { transaction }
+            { transaction },
           );
         }
 
@@ -96,10 +91,7 @@ export const DeleteExpense = {
       });
 
       // Delete expense
-      await expenseRepository.delete({
-        where: { expense_ulid: params.expense_id },
-        transaction,
-      });
+      await expenseRepository.delete(params, { transaction });
 
       await transaction.commit();
       return { message: 'Expense deleted successfully' };

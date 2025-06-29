@@ -1,5 +1,10 @@
-import {createGroupService, deletedGroup, addUserToGroup, deleteUserFromGroup } from './add/js'
+import { createGroupService, deleteGroup, addUserToGroup, deleteUserFromGroup } from './add.js';
+import { getGroups } from './get.js';
 
 export const Group = {
-    createGroupService, deleteUserFromGroup, deletedGroup, addUserToGroup
-}
+  createGroupService,
+  deleteUserFromGroup,
+  deleteGroup,
+  addUserToGroup,
+  getGroups,
+};

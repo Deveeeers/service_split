@@ -11,7 +11,7 @@ const debug = _debug(CONSTANTS.SERVICE_NAME);
  * @returns {*} pass call to the next function or return 400 eror
  */
 export function requestValidator(validationSchema, source = 'body') {
-  return async function(req, res, next) {
+  return async function validateRequest(req, res, next) {
     try {
       const validations = validationSchema.validate(req[source]);
       if (validations.error) {

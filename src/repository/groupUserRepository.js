@@ -1,5 +1,4 @@
 import { Model } from '../db/models/index.js';
-import { InternalServerError } from '../exceptions/http/internalServer.js';
 
 export const groupUserRepository = {
   addUser: async (data, options = {}) => {
@@ -8,29 +7,20 @@ export const groupUserRepository = {
     return newUserGroup;
   },
 
-  deleteUser: async (options) => {
-    const deletedUser = await Model.GroupUser.destroy(
-     options
-    );
+  deleteUser: async options => {
+    const deletedUser = await Model.GroupUser.destroy(options);
     return deletedUser;
   },
-
-  addUser: async (data, options = {}) => {
-    const addedUsers = await Model.GroupUser.create(
-      data,
-      options,
-    );
-    return addedUsers;
-  },
   addMultiple: async (data, options = {}) => {
-    const addedUsers = await Model.GroupUser.bulkCreate(
-      data,
-      options,
-    );
+    const addedUsers = await Model.GroupUser.bulkCreate(data, options);
     return addedUsers;
   },
-  get: async (options) => {
+  get: async options => {
     const UserGroup = await Model.GroupUser.findOne(options);
     return UserGroup;
+  },
+  getAll: async options => {
+    const UserGroups = await Model.GroupUser.findAll(options);
+    return UserGroups;
   },
 };

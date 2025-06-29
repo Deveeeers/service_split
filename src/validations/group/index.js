@@ -5,7 +5,10 @@ export const createGroupBodyValidator = Joi.object({
     .min(3)
     .required(),
   desc: Joi.string().required(),
-  user_ids: Joi.array().items(Joi.string()).min(1).required(),
+  user_ids: Joi.array()
+    .items(Joi.string())
+    .min(1)
+    .required(),
 });
 
 export const createGroupHeaderValidator = Joi.object({

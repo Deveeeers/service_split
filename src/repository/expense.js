@@ -10,8 +10,22 @@ export const expenseRepository = {
     return data;
   },
   delete: async (params, options = {}) => {
-    console.log(params?.params?.id);
-    const data = await Model.Expense.destroy({ where: { expense_ulid: params.params.id } }, options);
+    console.log(params?.expense_id);
+    const data = await Model.Expense.destroy({
+      where: { expense_ulid: params.expense_id },
+      ...options,
+    });
+    return data;
+  },
+  update: async (updateData, whereClause, options = {}) => {
+    const data = await Model.Expense.update(updateData, {
+      where: whereClause,
+      ...options,
+    });
+    return data;
+  },
+  getAll: async (options = {}) => {
+    const data = await Model.Expense.findAll(options);
     return data;
   },
 };

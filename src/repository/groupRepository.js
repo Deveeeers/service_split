@@ -32,4 +32,8 @@ export const groupRepository = {
     const groupDetails = Model.GroupDetail.findOne(options);
     return groupDetails;
   },
+  getAll: async options => {
+    const groupDetails = Model.GroupDetail.findAll(options);
+    return groupDetails;
+  },
 };

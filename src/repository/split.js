@@ -10,7 +10,7 @@ export const splitRepository = {
     return data;
   },
   destroy: async (options = {}) => {
-    const data = await Model.Split.delete(options);
+    const data = await Model.Split.destroy(options);
     return data;
   },
   findAll: async (options = {}) => {

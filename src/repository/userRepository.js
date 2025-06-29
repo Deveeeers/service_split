@@ -1,17 +1,14 @@
 import { Model } from '../db/models/index.js';
-import { InternalServerError } from '../exceptions/http/internalServer.js';
 
 export const userRepository = {
   createUser: async (data, options = {}) => {
     const newUser = await Model.User.create(data, options);
-   
+
     return newUser;
   },
 
   deleteUser: async options => {
-    const deletedUser = await Model.User.destroy(
-      options
-    );
+    const deletedUser = await Model.User.destroy(options);
     return deletedUser;
   },
 
@@ -21,12 +18,12 @@ export const userRepository = {
   },
 
   get: async options => {
-    const userDetails = Model.User.findOne(options);
+    const userDetails = await Model.User.findOne(options);
     return userDetails;
   },
 
   getAll: async options => {
-    const userDetails = Model.User.findAll(options);
+    const userDetails = await Model.User.findAll(options);
     return userDetails;
   },
 };

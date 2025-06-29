@@ -10,6 +10,6 @@ export const CONSTANTS = {
   },
   ROLES: {
     MEMBER: 'member',
-    ADMIN: 'admin'
-  }
+    ADMIN: 'admin',
+  },
 };

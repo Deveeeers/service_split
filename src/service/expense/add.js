@@ -1,3 +1,4 @@
+/* eslint-disable no-restricted-syntax */
 import { groupRepository, expenseRepository, userRepository, splitRepository, balanceRepository, balanceSheetRepository } from '../../repository/index.js';
 import { Model } from '../../db/models/index.js';
 import { Common } from '../../utils/index.js';
@@ -5,15 +6,15 @@ import { Http } from '../../exceptions/index.js';
 
 const { sequelize } = Model;
 
-function getLentMoney(lentMoney, oweMoney, entry) {
+function getLentMoney(balanceData, lentMoney, oweMoney, splitAmount) {
   if (!balanceData) return 0;
-  const amount = lentMoney - oweMoney - entry.split_amount;
+  const amount = lentMoney - oweMoney - splitAmount;
   if (amount < 0) return 0;
   return amount;
 }
-function getOweMoney(lentMoney, oweMoney, entry) {
-  if (!balanceData) return entry.split_amount;
-  const amount = oweMoney + entry.split_amount - lentMoney;
+function getOweMoney(balanceData, lentMoney, oweMoney, splitAmount) {
+  if (!balanceData) return splitAmount;
+  const amount = oweMoney + splitAmount - lentMoney;
   if (amount < 0) return 0;
   return amount;
 }
@@ -39,7 +40,7 @@ export const AddExpense = {
       });
 
       if (!group || !userDetails) {
-        const error = new Http.NotFoundError('user not found')
+        const error = new Http.NotFoundError('user not found');
         throw error;
       }
       const expenseData = {
@@ -47,8 +48,8 @@ export const AddExpense = {
         title: params.title,
         desc: params.desc || '',
         amount: params.total_amount,
-        group_id: group.group_id,
-        paid_by_id: userDetails.id,
+        group_id: group.uuid,
+        paid_by_id: userDetails.ulid,
       };
 
       const expense = await expenseRepository.create(expenseData, { transaction });
@@ -76,10 +77,10 @@ export const AddExpense = {
           where: {
             user_id: entry.user_id,
             another_user_id: params.user_id,
-          }
+          },
         });
-        const lentMoney = getLentMoney(balanceData, entry);
-        const oweMoney = getOweMoney(balanceData, entry);
+        const lentMoney = getLentMoney(balanceData, balanceData?.lent_money, balanceData?.owe_money, entry.split_amount);
+        const oweMoney = getOweMoney(balanceData, balanceData?.lent_money, balanceData?.owe_money, entry.split_amount);
         const updatedBalanceData = {
           user_id: entry.user_id,
           another_user_id: params.user_id,
@@ -110,11 +111,11 @@ export const AddExpense = {
         const balancesheetData = await balanceSheetRepository.get({
           where: {
             user_id: entry.user_id,
-          }
+          },
         });
-        const totalOwe = getOweMoney(balancesheetData.total_owe, balancesheetData.total_lent, splitAmount);
-        const totalLent = getLentMoney(balancesheetData.total_owe, balancesheetData.total_lent, splitAmount);
-        const totalExpense = balancesheetData.total_expense + split_amount;
+        const totalOwe = getOweMoney(balancesheetData.total_owe, balancesheetData.total_lent, entry.split_amount);
+        const totalLent = getLentMoney(balancesheetData.total_owe, balancesheetData.total_lent, entry.split_amount);
+        const totalExpense = balancesheetData.total_expense + entry.split_amount;
         const updatedData = {
           total_owe: totalOwe,
           total_lent: totalLent,

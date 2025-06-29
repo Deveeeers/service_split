@@ -1,0 +1,25 @@
+{
+    "parser": "babel-eslint",
+    "extends": [
+      "airbnb-base",
+      "plugin:prettier/recommended",
+      "prettier/flowtype",
+      "plugin:jest/recommended"
+    ],
+    "plugins": [ "jest"],
+    "env": {
+      "jest": true,
+      "jest/globals": true
+    },
+    "rules": {
+      "max-classes-per-file": "off",
+      "no-console": "off",
+      "semi": ["error", "always"],
+      "linebreak-style": "off",
+      "import/prefer-default-export": "off",
+      "import/extensions": "off",
+      "no-await-in-loop": "warn",
+      "no-restricted-syntax":"warn",
+      "camelcase": "off"
+    }
+  }
